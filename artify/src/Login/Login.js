@@ -1,42 +1,11 @@
 import React from 'react';
 import './Login.css'
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 
 
-async function send(Username, Password) {
-    const data = {
-      username: Username,
-      password: Password,
-    };
-  
-    const response = await fetch('http://localhost:5000/api/Tokens', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-  
-    if (response.ok) {
-      const token = await response.text();
-      return token;
-    } else {
-      throw new Error('Invalid username or password');
-    }
-  }
-  
-  async function sendRequest(username, password) {
-    try {
-      const token = await send(username, password);
-      return token;
-    } catch (error) {
-      throw error;
-    }
-  }
-  
-  
+
   
 function Login() {
 

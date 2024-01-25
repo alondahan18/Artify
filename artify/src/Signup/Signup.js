@@ -1,5 +1,5 @@
 import './Signup.css';
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Password from './Password';
 
 
@@ -8,8 +8,6 @@ function Signup() {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      const displayName = document.getElementById('display-name').value;
-      const MyUsername = document.getElementById('username2').value;
       const Mypassword = document.getElementById('psw2').value;
       const repeatPassword = document.getElementById('psw-repeat').value;
   
