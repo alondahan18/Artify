@@ -78,7 +78,7 @@ function Login() {
                             Log in
                         </button>
                         <p>
-                            Not a member? <Link to="/SignUp"> Sign up</Link>
+                            Not a member? <Link to="/Signup"> Sign up</Link>
                         </p>
                     </div>
                 </div>

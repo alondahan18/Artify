@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Password from './Password';
 
 
-function SignUp() {
+function Signup() {
 
   
     const handleSubmit = (event) => {
@@ -84,4 +84,4 @@ function SignUp() {
     );
 }
 
-export default SignUp
+export default Signup

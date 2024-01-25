@@ -14,11 +14,11 @@ h1 {
 #container2 {
     position: relative; /* Change to relative */
     background-color: white;
-    width: 35%;
+    width: 25%;
     height: auto; /* Change to auto */
     border: none;
     border-radius: 2%;
-    transform: scale(1.4); /* Adjust the scale factor as needed */
+    transform: scale(1.5); /* Adjust the scale factor as needed */
     margin: 8.5% auto; /* Center the container vertically and horizontally */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
     padding-right: 0;
