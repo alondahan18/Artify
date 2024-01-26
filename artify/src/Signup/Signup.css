@@ -103,10 +103,7 @@ h3 {
     color: black;
 }
 
-.signupBtn:active {
-    background-color: #23a6d5 !important;
-    border-color: #23a6d5 !important;
-}
+
 
 a {
     text-decoration: none;

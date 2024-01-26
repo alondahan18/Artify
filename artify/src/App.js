@@ -5,6 +5,8 @@ import Login from './Login/Login';
 import Quiz from './Quiz/Quiz';
 import Studying from './Studying/Studying';
 import Filters from './Filters/Filters';
+import Scoreboard from './Scoreboard/Scoreboard';
+import Collection from './Collection/Collection';
 function App() {
   return (
     <>
@@ -15,6 +17,8 @@ function App() {
       <Route path="/Filters" Component= {Filters}></Route>
       <Route path="/Studying" Component= {Studying}></Route>
       <Route path="/Quiz" Component= {Quiz}></Route>
+      <Route path="/Collection" Component= {Collection}></Route>
+      <Route path="/Scoreboard" Component= {Scoreboard}></Route>
     </Routes>
     </BrowserRouter>
     </>
