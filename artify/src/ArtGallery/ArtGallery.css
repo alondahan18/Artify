@@ -20,4 +20,8 @@
       width: calc(33.3333% - 15px); /* Calculate width for 3 cards in a row with equal spacing */
     }
   }
+  .card-img-top {
+  height: 250px; /* Set your desired fixed height */
+  object-fit: cover; /* Maintain the image's aspect ratio and cover the entire container */
+}
   

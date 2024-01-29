@@ -24,7 +24,7 @@ const artObjects = [
         dynasty: 'Dynasty 3',
       },
       {
-        primaryimage: 'https://images.metmuseum.org/CRDImages/ep/original/DT1567.jpg',
+        primaryimage: 'https://images.metmuseum.org/CRDImages/as/original/DP251139.jpg',
         artist: 'Artist 4',
         title: 'Artwork 4',
         year: 2021,
