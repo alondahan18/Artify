@@ -1,0 +1,59 @@
+/* Quiz.css */
+
+/* Add the following styles */
+#quizImage {
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: center;
+    display: block;
+    margin: 0 auto; /* Center the image */
+    width: 95%; /* Make the image take up 100% of the container width */
+    height: 350px;
+    border-radius: 2.5%;
+}
+.question {
+    text-align: center;
+  }
+
+#questionText {
+    margin-left: 2.5%;
+    font-family: 'Garamond', serif;
+    font-weight: bold;
+    font-size: 35px;
+    align-items: center;
+}
+
+/* New styles for the answer buttons */
+#answerContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Add or adjust the following styles */
+.answerButton {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #006400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  #answerContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+.answerButton:hover {
+    background-color: antiquewhite;
+    color: black;
+}

@@ -326,11 +326,11 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/mediums.png"
+              src="/images/mediums.jpg"
               className="card-img"
             />
             <Card.Body>
-            <Card.Title>Choose Period of time</Card.Title>
+            <Card.Title>Choose Mediums</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {nationOptions.map((medium, index) => (
                 <ListGroup.Item key={index} action onClick={() => toggleMedium(medium)}>

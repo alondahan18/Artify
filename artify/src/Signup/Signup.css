@@ -117,12 +117,7 @@ a {
     text-align: center; /* Center the text */
 }
 
-img {
-    float: right;
-    border-radius: 50%;
-    position: relative;
-    width: 15%;
-}
+
 
 form i {
     margin-right: 1%;
