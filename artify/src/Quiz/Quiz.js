@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Quiz.css';
 import Menu from '../Menu/Menu';
 
@@ -10,7 +11,6 @@ const list = [
 ];
 
 function shuffleArray(array) {
-  // Shuffling the array using Fisher-Yates algorithm
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -23,14 +23,17 @@ function Quiz() {
   const [imgIndex, setImgIndex] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [chosenAnswer, setChosenAnswer] = useState(null);
+  const [quizComplete, setQuizComplete] = useState(false);
 
-  let questionText = '';
-  let answerOptions = [];
+  const navigate = useNavigate();
 
   const handleButtonClick = (chosenOption) => {
+    if (quizComplete) {
+      return;
+    }
+
     setQuestion(question + 1);
 
-    // Check if the chosen answer matches the correct field in the image
     if (question % 3 === 1 && chosenOption === list[imgIndex].artist) {
       setCorrectAnswers(correctAnswers + 1);
     } else if (question % 3 === 2 && chosenOption === list[imgIndex].title) {
@@ -39,17 +42,23 @@ function Quiz() {
       setCorrectAnswers(correctAnswers + 1);
     }
 
-    // Change the image every 3 questions
-    if (question % 3 === 0) {
+    if (question % 3 === 0 && question !== 12) {
       setImgIndex((imgIndex + 1) % list.length);
     }
 
-    // You may want to add logic to handle reaching the maximum number of questions (12 in this case)
-    // and take appropriate action, e.g., show results or reset the quiz.
+    if (question === 12) {
+      setQuizComplete(true);
 
-    // Reset the chosen answer for the next question
+      setTimeout(() => {
+        navigate('/Filters');
+      }, 3500);
+    }
+
     setChosenAnswer(null);
   };
+
+  let questionText = '';
+  let answerOptions = [];
 
   if (question % 3 === 1) {
     questionText = "Who's the artist?";
@@ -66,24 +75,36 @@ function Quiz() {
 
   return (
     <div>
-      <Menu />
-      <h2 id="title_collection" className="question">Question {question}/12</h2>
-      <span id="questionText">{questionText}</span>
-      <img id="quizImage" src={img} alt="quiz" />
-      <div id="answerContainer">
-        {answerOptions.map((answer, index) => (
-          <button
-            key={index}
-            className={`answerButton ${chosenAnswer === answer ? 'chosen' : ''}`}
-            onClick={() => {
-              setChosenAnswer(answer);
-              handleButtonClick(answer);
-            }}
-          >
-            {answer}
-          </button>
-        ))}
-      </div>
+      {quizComplete ? (
+
+        <div className="centered-message">
+          <div className="quizCompleteOptions">
+            <p>Quiz completed! You got {correctAnswers} out of 12 correct answers.</p>
+            <p>Returns to filter page.</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Menu />
+          <h2 id="title_collection" className="question">Question {question}/12</h2>
+          <span id="questionText">{questionText}</span>
+          <img id="quizImage" src={img} alt="quiz" />
+          <div id="answerContainer">
+            {answerOptions.map((answer, index) => (
+              <button
+                key={index}
+                className={`answerButton ${chosenAnswer === answer ? 'chosen' : ''}`}
+                onClick={() => {
+                  setChosenAnswer(answer);
+                  handleButtonClick(answer);
+                }}
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

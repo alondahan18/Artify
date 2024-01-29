@@ -57,3 +57,13 @@
     background-color: antiquewhite;
     color: black;
 }
+.centered-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set height to full viewport height */
+    font-weight: bolder;
+    color: black;
+    font-size: 50px;
+  }
+  
