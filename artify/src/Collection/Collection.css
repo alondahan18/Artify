@@ -1,0 +1,12 @@
+/* Collection.css */
+#title_collection, #title_studying {
+    font-family: 'Garamond', serif;
+    margin-left: 20px; /* Adjust the margin as needed */
+    font-weight: bold; /* Make it bolder */
+    font-size: 35px; /* Set the font size to your preference */
+    border-bottom: 1px solid #d3d3d3; /* Light grey line */
+    width: 95%; /* Make the line the width of the screen */
+    margin-top: 20px;
+}
+
+/* Additional styling for the ArtGallery or other elements can be added here */

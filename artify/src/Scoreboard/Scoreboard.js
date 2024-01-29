@@ -1,21 +1,29 @@
 import './Scoreboard.css'
 import React from 'react';
-
+import Menu from '../Menu/Menu';
 const highScores = [
     { name: 'Bill', score: 123 },
     { name: 'Garry', score: 34 },
+    { name: 'Al', score: 33 },
+    { name: 'B', score: 32 },
+    { name: 'C', score: 31 },
+    { name: 'E', score: 30 },
+    { name: 'D', score: 29 },
+    { name: 'F', score: 27 },
+    { name: 'K', score: 24 },
+    { name: 'H', score: 23 }
     // ... other player data
   ];
 function Scoreboard() {
     return (
         <div>
-            <span><h1>Artify</h1><span>Home</span></span>
+          <Menu />
         <div className="wrapper">
+        <h2>Top 10 learners:</h2>
           <table>
-            <caption>High Scores (total {highScores.length})</caption>
             <tr>
-              <th>Name</th>
-              <th>Score</th>
+              <th>Username</th>
+              <th>XP</th>
             </tr>
             {highScores.map((player, index) => (
               <tr key={index}>

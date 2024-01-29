@@ -1,11 +1,11 @@
 body {
     margin: 0; /* Remove default margin on the body */
-    overflow: hidden; /* Hide any overflow to prevent scrollbars */
-    background: linear-gradient(to right, #b3b3b3, #e6e6e6); /* Gradient from Grey to Light Grey */
+    overflow: auto; /* Hide any overflow to prevent scrollbars */
+    overflow-x: hidden;
 
 }
 h1 {
-    color: rgb(111, 112, 113);
+    color: #006400;
     font-family: 'Garamond', serif;
     margin-top: 1%;
     margin-left: 2%;
@@ -36,7 +36,7 @@ h1 {
     left: 0;
     width: 100%;
     height: 16%;
-    border-bottom: 1px solid rgb(111, 112, 113);
+    border-bottom: 1px solid #006400;
     display: flex; /* Add display flex */
     justify-content: center; /* Center the content horizontally */
     align-items: center; /* Center the content vertically */
@@ -65,7 +65,7 @@ h1 {
 #psw,
 #username {
     border: none;
-    border-bottom: 2px solid rgb(111, 112, 113);
+    border-bottom: 2px solid #006400;
     border-radius: 0%;
     width: 92%; /* Change to 100% */
     margin-top: 2%;
@@ -80,16 +80,16 @@ h1 {
 
 #loginBtn {
     width: 95%;
-    background-color: rgb(111, 112, 113);
-    border-color: rgb(111, 112, 113);
+    background-color: #006400;
+    border-color: #006400;
     color: white;
     margin-bottom: 5px;
     margin-top: 20px;
 }
 
 #loginBtn:hover {
-    background-color: rgb(111, 112, 113);
-    border-color: rgb(111, 112, 113);
+    background-color: #006400;
+    border-color: #006400;
     color: black;
 }
 

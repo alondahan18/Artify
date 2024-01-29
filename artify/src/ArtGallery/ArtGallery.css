@@ -1,0 +1,23 @@
+/* ArtGallery.css */
+.art-gallery-row {
+    margin-left: 2.5%; /* Offset for Bootstrap gutter width */
+
+  }
+  
+  .card {
+    margin: 0 0.5% 1% 0.5%; /* Adjust the margin as needed */
+  }
+  
+  .card-img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Optional: Adjust the width of the card to fit 3 cards in a row with equal spacing */
+  @media (min-width: 768px) {
+    .card {
+      width: calc(33.3333% - 15px); /* Calculate width for 3 cards in a row with equal spacing */
+    }
+  }
+  

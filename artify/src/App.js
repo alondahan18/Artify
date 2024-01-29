@@ -8,6 +8,8 @@ import Filters from './Filters/Filters';
 import Scoreboard from './Scoreboard/Scoreboard';
 import Collection from './Collection/Collection';
 function App() {
+
+
   return (
     <>
     <BrowserRouter>

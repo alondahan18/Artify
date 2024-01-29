@@ -30,7 +30,7 @@ function Signup() {
   
     
     return (
-        <div>
+        <body className="page-signup">
             <h1>Artify</h1>
     
         <form id="myform" onSubmit={handleSubmit}>
@@ -78,7 +78,7 @@ function Signup() {
                 </div>
             </div>
         </form>
-        </div>
+        </body>
     );
 }
 
