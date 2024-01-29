@@ -7,10 +7,11 @@ const Menu = () => {
   return (
     <div className="menu-container">
       <div className="menu-left">
-      <Link to="/Filters"><h1>Artify</h1></Link>
+      <h1>Artify</h1>
       </div>
       <div className="menu-right">
         <span className="xp">XP: 0</span>
+        <Link to="/Filters">Home</Link>
         <Link to="/Scoreboard">Scoreboard</Link>
         <Link to="/Collection">Collection</Link>
         <Link to="/">Logout<i class="bi bi-box-arrow-left"></i></Link>

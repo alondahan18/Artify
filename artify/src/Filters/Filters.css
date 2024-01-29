@@ -1,0 +1,57 @@
+/* Filters.css */
+.filter-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent filters from wrapping to the next line */
+    margin: 20px; /* Add some margin for spacing */
+    height: 27.5em;
+  }
+  
+  .filter-row {
+    display: inline-flex; /* Ensure filters stay on the same line */
+  }
+  
+  .filter-card {
+    min-width: 200px; /* Set a minimum width for each filter card */
+    margin-right: 10px; /* Add some margin between filter cards */
+  }
+  
+  .apply-button {
+    margin-top: 10px; /* Add margin to separate the filters and apply button */
+  }
+  .artist-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .filter-scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .filter-container {
+    display: inline-block;
+  }
+  .filter-container {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .filter-row {
+    display: inline-flex;
+  }
+  .start-filter-button {
+    padding: 10px 20px; /* Add padding to the button */
+    font-size: 30px; /* Set the font size */
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #006400; /* Your desired button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%;
+  }
+  .start-filter-button:hover {
+    background-color: #004d00; /* Darker color on hover */
+  }
+  
+  
