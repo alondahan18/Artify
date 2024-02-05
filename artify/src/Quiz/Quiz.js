@@ -24,8 +24,25 @@ function Quiz() {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [chosenAnswer, setChosenAnswer] = useState(null);
   const [quizComplete, setQuizComplete] = useState(false);
-
+  const [artworksLearned, setArtworksLearned] = useState([]);
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);  
+  const [count3, setCount3] = useState(0);  
+  const [count4, setCount4] = useState(0);
+  console.log(artworksLearned);
+  
   const navigate = useNavigate();
+
+  const addArtwork = (newArtwork) => {
+    setArtworksLearned((prevArtworks) => {
+      // Check if the newArtwork is not already in the array
+      if (!prevArtworks.some(artwork => artwork === newArtwork)) {
+        return [...prevArtworks, newArtwork];
+      }
+      // If the artwork is already in the array, return the existing array
+      return prevArtworks;
+    });
+  };
 
   const handleButtonClick = (chosenOption) => {
     if (quizComplete) {
@@ -33,13 +50,31 @@ function Quiz() {
     }
 
     setQuestion(question + 1);
-
+  
+    const updateCounts = () => {
+      if (question >= 1 && question <= 3) {
+        setCount1(count1 + 1);
+      }
+      if (question >= 4 && question <= 6) {
+        setCount2(count2 + 1);
+      }
+      if (question >= 7 && question <= 9) {
+        setCount3(count3 + 1);
+      }
+      if (question >= 10 && question <= 12) {
+        setCount4(count4 + 1);
+      }
+    };
+    
     if (question % 3 === 1 && chosenOption === list[imgIndex].artist) {
       setCorrectAnswers(correctAnswers + 1);
+      updateCounts();
     } else if (question % 3 === 2 && chosenOption === list[imgIndex].title) {
       setCorrectAnswers(correctAnswers + 1);
+      updateCounts();
     } else if (question % 3 === 0 && chosenOption === list[imgIndex].year) {
       setCorrectAnswers(correctAnswers + 1);
+      updateCounts();
     }
 
     if (question % 3 === 0 && question !== 12) {
@@ -55,6 +90,19 @@ function Quiz() {
     }
 
     setChosenAnswer(null);
+    if (count1 === 3) {
+      addArtwork(list[0].title);
+    }
+    if (count2 === 3) {
+      addArtwork(list[1].title);
+    }
+    if (count3 === 3) {
+      addArtwork(list[2].title);
+    }
+    if (count4 === 3) {
+      addArtwork(list[3].title);
+    }
+    
   };
 
   let questionText = '';
