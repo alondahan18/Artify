@@ -18,9 +18,42 @@ function shuffleArray(array) {
   return array;
 }
 
+function generateShuffledIndices() {
+  const indices = [];
+  const counts = [0, 0, 0, 0]; // Counter to track occurrences
+
+  // Push each index 3 times but not on the same modulo 3 positions
+  for (let i = 0; i < 12; i++) {
+    let index;
+    do {
+      index = Math.floor(Math.random() * 4); // Random index
+    } while (counts[index] >= 3 || (i >= 3 && indices[i - 3] === index) || (i >= 6 && indices[i - 6] === index) || (i >= 9 && indices[i - 9] === index));
+    indices.push(index);
+    counts[index]++;
+  }
+
+  return indices;
+}
+
+
+
+
+
+
+
+
+
+
+
+const imgIndices = generateShuffledIndices();
+
+
 function Quiz() {
+  var imgIndex = imgIndices[11]
   const [question, setQuestion] = useState(1);
-  const [imgIndex, setImgIndex] = useState(0);
+  if (question <= 12) {
+    imgIndex = imgIndices[question-1]
+  }
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [chosenAnswer, setChosenAnswer] = useState(null);
   const [quizComplete, setQuizComplete] = useState(false);
@@ -52,16 +85,16 @@ function Quiz() {
     setQuestion(question + 1);
   
     const updateCounts = () => {
-      if (question >= 1 && question <= 3) {
+      if (imgIndex === 0) {
         setCount1(count1 + 1);
       }
-      if (question >= 4 && question <= 6) {
+      if (imgIndex === 1) {
         setCount2(count2 + 1);
       }
-      if (question >= 7 && question <= 9) {
+      if (imgIndex === 2) {
         setCount3(count3 + 1);
       }
-      if (question >= 10 && question <= 12) {
+      if (imgIndex === 3) {
         setCount4(count4 + 1);
       }
     };
@@ -77,9 +110,7 @@ function Quiz() {
       updateCounts();
     }
 
-    if (question % 3 === 0 && question !== 12) {
-      setImgIndex((imgIndex + 1) % list.length);
-    }
+    
 
     if (question === 12) {
       setQuizComplete(true);
