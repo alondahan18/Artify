@@ -1,0 +1,52 @@
+###
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "123",
+    "firstName": "fname",
+    "lastName": "lname",
+    "gender": "m"
+}
+
+
+###
+POST http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "username": "roni",
+    "password": "123"
+}
+
+
+###
+POST http://localhost:5000/api/user/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNjcxOTEzNywianRpIjoiZDFkMjMwNDMtMTVkZC00ZDcwLTg1NDktOTlhNzNhZjk1NmNiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDY3MTkxMzcsImV4cCI6MTcwNjcyMDAzN30.xDh_cJ1QLf24nKQawYDww0KYwE0NfHKxGiOZrB0qFLA
+
+###
+POST http://localhost:5000/api/user/delete
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzA4MTI1MCwianRpIjoiZjE2NmVmNTgtNjZiNS00ZGQ0LWFhMmUtYjczYzQ3ZjZjYzkyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InVzZXIiLCJuYmYiOjE3MDcwODEyNTAsImV4cCI6MTcwNzA4MjE1MH0.lOHUEwETaiTIaCq1RD5LDHigrqPa11HfoTAyssvT3E8
+
+###
+GET http://localhost:5000/api/user/scores
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzA4NDQ3MiwianRpIjoiNDI2YWM2ODUtMmZjYy00YzhlLTlmN2YtNTdhYWYwYThiYWZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDcwODQ0NzIsImV4cCI6MTcwNzA4NTM3Mn0.CDlOyiLwZzae54ZC3xN_Ei-jVySC6EurP6AZoURqI2E
+
+###
+GET http://localhost:5000/api/user/above_average
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzU5NTI1OSwianRpIjoiODEwZmU4ZmUtZjBiMS00ZWI5LWIxZWEtNzY2NzEwZGVjNDE1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc1OTUyNTksImV4cCI6MTcwNzU5NjE1OX0.mWXkfZPxe9vlKu2JsKATwfP-R2lKylIgf9QVNszZp24
+
+###
+GET http://localhost:5000/api/artworks/learned
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzA4NzU2MywianRpIjoiZTViMWE4YWUtYTMzZC00MzQ4LWIwYmEtZTMyMGRhN2M4M2Q5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDcwODc1NjMsImV4cCI6MTcwNzA4ODQ2M30.gTqKrYRlNEGWoaozlJXJsgj_sG-7mpyA8CwpIpSupXQ
+
+###
+GET http://localhost:5000/api/artworks/filters
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzY3MTk3NywianRpIjoiYjFkZjk3OGEtYTNlYy00ZTg4LWEzMDctMGE4ZGQ0NGMyY2ZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc2NzE5NzcsImV4cCI6MTcwNzY3Mjg3N30.eO18WIbuXKPAiVTg_lRB15u6Cp1wEEn0saoU8w_qymk
