@@ -19,7 +19,7 @@ function Scoreboard() {
         <div>
           <Menu />
         <div className="wrapper">
-        <h2>Top 10 learners:</h2>
+        <h2>Top Learners:</h2>
           <table>
             <tr>
               <th>Username</th>

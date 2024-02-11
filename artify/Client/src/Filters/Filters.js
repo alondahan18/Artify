@@ -14,11 +14,16 @@ function Filters() {
     const [selectedCultures, setSelectedCultures] = useState([]);
     const [selectedMediums, setSelectedMediums] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
-    const [selectedGender, setSelectedGender] = useState(0);
+    const [selectedGender, setSelectedGender] = useState([]);
     const [minYear, setMinYear] = useState('');
     const [maxYear, setMaxYear] = useState('');
     const [selectedDimensions, setSelectedDimensions] = useState([]);
-    console.log(selectedDimensions)
+    const [selectedSpecial, setSelectedSpecial] = useState('None');
+    console.log(selectedSpecial)
+
+    const handleSpecialFilterChange = (event) => {
+      setSelectedSpecial(event.target.value);
+  };
 
     const toggleDimension = (dimension) => {
     const isSelected = selectedDimensions.includes(dimension);
@@ -40,10 +45,15 @@ function Filters() {
 
 
 
-    const toggleGender = () => {
-        // If selectedGender is 0, toggle to 1 (Female), otherwise toggle to 0 (Male)
-        setSelectedGender(selectedGender === 0 ? 1 : 0);
-      };
+    const toggleGender = (gender) => {
+      setSelectedGender((prevSelectedGender) => {
+          if (prevSelectedGender.includes(gender)) {
+              return prevSelectedGender.filter((g) => g !== gender);
+          } else {
+              return [...prevSelectedGender, gender];
+          }
+      });
+  };
       
 
     const toggleArtist = (artist) => {
@@ -172,24 +182,24 @@ function Filters() {
               className="card-img"
             />
             <Card.Body>
-            <Card.Title>Choose Gender</Card.Title>
-            <Form.Check
-                inline
-                label="Male"
-                type="checkbox"
-                id="male-checkbox"
-                checked={selectedGender === 0}
-                onChange={toggleGender}
-                />
-                <Form.Check
-                inline
-                label="Female"
-                type="checkbox"
-                id="female-checkbox"
-                checked={selectedGender === 1}
-                onChange={toggleGender}
-                />
-            </Card.Body>
+                                <Card.Title>Choose Gender</Card.Title>
+                                <Form.Check
+                                    inline
+                                    label="Male"
+                                    type="checkbox"
+                                    id="male-checkbox"
+                                    checked={selectedGender.includes("Male")}
+                                    onChange={() => toggleGender("Male")}
+                                />
+                                <Form.Check
+                                    inline
+                                    label="Female"
+                                    type="checkbox"
+                                    id="female-checkbox"
+                                    checked={selectedGender.includes("Female")}
+                                    onChange={() => toggleGender("Female")}
+                                />
+                            </Card.Body>
 
             </Card>
           </Col>
@@ -341,6 +351,46 @@ function Filters() {
             </Card.Body>
             </Card>
           </Col>
+
+          <Col>
+    <Card className="filter-card" style={{ width: '25rem' }}>
+        <Card.Img
+            variant="top"
+            src="/images/special.jpg"
+            className="card-img"
+        />
+        <Card.Body>
+            <Card.Title>Choose Special Filter</Card.Title>
+            <Form.Group>
+                                    <Form.Check
+                                        type="radio"
+                                        label="Earliest Artworks"
+                                        name="specialFilter"
+                                        value="Earliest Artworks"
+                                        checked={selectedSpecial === "Earliest Artworks"}
+                                        onChange={handleSpecialFilterChange}
+                                    />
+                                    <Form.Check
+                                        type="radio"
+                                        label="Artistic Cross-Cultural Influences"
+                                        name="specialFilter"
+                                        value="Artistic Cross-Cultural Influences"
+                                        checked={selectedSpecial === "Artistic Cross-Cultural Influences"}
+                                        onChange={handleSpecialFilterChange}
+                                    />
+                                    <Form.Check
+                                        type="radio"
+                                        label="None"
+                                        name="specialFilter"
+                                        value="None"
+                                        checked={selectedSpecial === "None"}
+                                        onChange={handleSpecialFilterChange}
+                                    />
+                                </Form.Group>
+        </Card.Body>
+    </Card>
+</Col>
+
 
         </Row>
       </Container>
