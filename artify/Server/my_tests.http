@@ -50,3 +50,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsI
 GET http://localhost:5000/api/artworks/filters
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzY3MTk3NywianRpIjoiYjFkZjk3OGEtYTNlYy00ZTg4LWEzMDctMGE4ZGQ0NGMyY2ZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc2NzE5NzcsImV4cCI6MTcwNzY3Mjg3N30.eO18WIbuXKPAiVTg_lRB15u6Cp1wEEn0saoU8w_qymk
+
+###
+POST http://localhost:5000/api/artworks/filter_results
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3MTAxMSwianRpIjoiYmUwZDM1N2MtNjgzOC00YTU0LTg2MDUtMGI4OGQxYmE2MmQ2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzEwMTEsImV4cCI6MTcwNzc3MTkxMX0.4Y49SOZC0dlllJp5RCa7suIqIWMSNUOV64dqVjLCcdw
+
+{
+    "artist_names": ["Pietro Santi Bartoli"],
+    "artist_nationalities": [],
+    "artwork_culture": [],
+    "artwork_classification": [],
+    "artwork_period": [],
+    "artwork_medium": [],
+    "get_oldest_artworks": true,
+    "get_different_countries": true
+}

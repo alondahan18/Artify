@@ -70,3 +70,75 @@ def get_unique_lists():
     return jsonify(unique_lists_dict)
 
 
+@artworks_blueprint.route('/filter_results', methods=['POST'])
+@jwt_required()
+def filter_artworks():
+    db = get_db()
+    cursor = db.cursor()
+
+    current_user = get_jwt_identity()
+    filters = request.get_json()
+
+    select_query = """
+        SELECT DISTINCT artwork.*, artist.displayName AS artist_name
+        FROM artwork
+        LEFT JOIN CreatedBy ON CreatedBy.ObjectID = artwork.objectID
+        LEFT JOIN artist ON artist.artistID = CreatedBy.artistID
+    """
+
+    conditions = []
+    # Build conditions based on filter choices
+    for key, values in filters.items():
+        if key == 'artist_names':
+            if values:
+                conditions.append(f"artist.displayName IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'artist_nationalities':
+            if values:
+                conditions.append(f"artist.nationality IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'artwork_culture':
+            if values:
+                conditions.append(f"artwork.culture IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'artwork_classification':
+            if values:
+                conditions.append(f"artwork.classification IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'artwork_period':
+            if values:
+                conditions.append(f"artwork.period IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'artwork_medium':
+            if values:
+                conditions.append(f"artwork.medium IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'get_oldest_artworks':
+            if values:  # Check if the value is True
+                conditions.append("""
+                    artwork.objectEndDate = (SELECT MIN(x.objectEndDate) FROM artwork x)
+                """)
+        elif key == 'get_different_countries': 
+            if values:  # Check if the value is True
+                subquery = "SELECT artwork.objectID FROM artwork " \
+                   "JOIN Geography g ON artwork.objectID = g.objectID " \
+                   "JOIN CreatedBy c ON artwork.objectID = c.objectID " \
+                   "JOIN Artist ar ON c.artistID = ar.artistID " \
+                   "WHERE g.country <> ar.nationality"
+                conditions.append(f"artwork.objectID IN ({subquery})")
+
+    # Add condition to exclude artworks the user has already studied
+    conditions.append("""
+        NOT EXISTS (
+            SELECT 1
+            FROM userArtworkLearn
+            JOIN users ON userArtworkLearn.userId = users.userId
+            WHERE userArtworkLearn.objectId = artwork.objectId
+            AND users.username = %s )
+    """)
+
+
+    if conditions:
+        where_clause = " AND ".join(conditions)
+        select_query += f" WHERE {where_clause}"
+
+    cursor.execute(select_query, (current_user,))
+    artworks = cursor.fetchall()
+    cursor.close()
+
+    return jsonify(artworks)
+
