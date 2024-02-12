@@ -11,3 +11,5 @@ class Config:
     DB_USER = os.environ.get('DB_USER') or 'root'
     DB_PASSWORD = os.environ.get('DB_PASSWORD')
     DB_NAME = os.environ.get('DB_NAME') or 'artifydb'
+
+    JWT_ACCESS_TOKEN_EXPIRES = 60 * 60  # Set expiration time to 1 hour (in seconds)

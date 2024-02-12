@@ -141,8 +141,6 @@ def delete_user():
 @user_blueprint.route('/above_average', methods=['GET'])
 @jwt_required()
 def get_users_above_average():
-    # current_user = get_jwt_identity()
-
     db = get_db()
     cursor = db.cursor()
 
