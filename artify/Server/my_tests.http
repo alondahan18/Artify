@@ -39,7 +39,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsI
 ###
 GET http://localhost:5000/api/user/above_average
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzU5NTI1OSwianRpIjoiODEwZmU4ZmUtZjBiMS00ZWI5LWIxZWEtNzY2NzEwZGVjNDE1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc1OTUyNTksImV4cCI6MTcwNzU5NjE1OX0.mWXkfZPxe9vlKu2JsKATwfP-R2lKylIgf9QVNszZp24
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NDA2OSwianRpIjoiZmM0NjY3MTQtYzVjMy00MzhiLWI4ZjYtNWE5NWU4NzU5YWExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzQwNjksImV4cCI6MTcwNzc3NDk2OX0.VDt8BYfkkKSnVKU73WTEg-54G10FtRia9bInR4YpMp0
 
 ###
 GET http://localhost:5000/api/artworks/learned
@@ -65,4 +65,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsI
     "artwork_medium": [],
     "get_oldest_artworks": true,
     "get_different_countries": true
+}
+
+###
+POST http://localhost:5000/api/artworks/update_test_results
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NDA2OSwianRpIjoiZmM0NjY3MTQtYzVjMy00MzhiLWI4ZjYtNWE5NWU4NzU5YWExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzQwNjksImV4cCI6MTcwNzc3NDk2OX0.VDt8BYfkkKSnVKU73WTEg-54G10FtRia9bInR4YpMp0
+
+{
+    "learned_artwork_ids": [],
+    "experience_points": 0
 }

@@ -142,3 +142,42 @@ def filter_artworks():
 
     return jsonify(artworks)
 
+
+@artworks_blueprint.route('/update_test_results', methods=['POST'])
+@jwt_required()
+def update_learned_artworks():
+    current_user = get_jwt_identity()
+
+    data = request.get_json()
+    learned_artwork_ids = data.get('learned_artwork_ids', [])
+    experience_points = data.get('experience_points')
+
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        for artwork_id in learned_artwork_ids:
+            cursor.execute("""
+                INSERT INTO userArtworkLearn (userId, objectId)
+                VALUES ((SELECT userId FROM users WHERE username = %s), %s)
+            """, (current_user, artwork_id))
+
+        cursor.execute("""
+            UPDATE users
+            SET score = COALESCE(score, 0) + %s,
+                numberOfSolvedArts = COALESCE(numberOfSolvedArts, 0) + %s
+            WHERE username = %s
+        """, (experience_points, len(learned_artwork_ids), current_user))
+
+        db.commit()
+        cursor.close()
+
+        return jsonify({'message': 'Artworks successfully updated and experience points added'})
+
+    except Exception as e:
+        # Handle exceptions, rollback changes if needed
+        db.rollback()
+        cursor.close()
+        return jsonify({'error': str(e)}), 500
+
+
