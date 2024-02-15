@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css'
-import {Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-
-
-
-
-  
 function Login() {
+    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    const handleSubmit = (event) => {
-        
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:5000/api/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (!response.ok) {
+                throw new Error('Login failed: Wrong username or password');
+            }
+
+            // If login is successful, navigate to home page
+            const responseData = await response.json();
+            const token = responseData.access_token;
+            navigate('/Filters', { state: {token: token}});
+        } catch (error) {
+            alert(error.message);
+        }
     };
+
     return (
         <>
             <h1>Artify</h1>
             <form onSubmit={handleSubmit}>
                 <div id="container2">
                     <div id="form-header2">
-                        <h3>Login<i class="bi bi-brush"></i></h3>
+                        <h3>Login<i className="bi bi-brush"></i></h3>
                     </div>
                     <div id="form-body2">
                         <p>Username:</p>
@@ -28,6 +48,8 @@ function Login() {
                                 placeholder="Enter username"
                                 name="username"
                                 id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required
                             />
                         </div>
@@ -38,12 +60,14 @@ function Login() {
                                 placeholder="Enter password"
                                 name="psw"
                                 id="psw"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
                         </div>
                     </div>
                     <div id="form-footer2">
-                        <button id="loginBtn" type="submit2" className="btn btn-warning">
+                        <button id="loginBtn" type="submit" className="btn btn-warning">
                             Log in
                         </button>
                         <p>
@@ -54,7 +78,6 @@ function Login() {
             </form>
         </>
     );
-
-
 }
-export default Login
+
+export default Login;

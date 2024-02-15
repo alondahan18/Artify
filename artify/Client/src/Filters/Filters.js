@@ -3,11 +3,13 @@ import Menu from '../Menu/Menu';
 import { Card, Container, Row, Col, ListGroup, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 
 
 function Filters() {
+  const location = useLocation();
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [selectedNations, setSelectedNations] = useState([]);
     const [selectedPeriods, setSelectedPeriods] = useState([]);
@@ -20,7 +22,8 @@ function Filters() {
     const [selectedDimensions, setSelectedDimensions] = useState([]);
     const [selectedSpecial, setSelectedSpecial] = useState('None');
     console.log(selectedSpecial)
-
+    const token = location.state.token;
+    console.log(token);
     const handleSpecialFilterChange = (event) => {
       setSelectedSpecial(event.target.value);
   };

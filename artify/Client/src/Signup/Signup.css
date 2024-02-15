@@ -25,7 +25,7 @@ h3 {
     border: none;
     border-radius: 2%;
     transform: scale(1.25); /* Adjust the scale factor as needed */
-    margin: 8.5% auto; /* Center the container vertically and horizontally */
+    margin: 5.5% auto; /* Center the container vertically and horizontally */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
     padding-right: 0;
     padding-left: 0;
@@ -75,7 +75,7 @@ h3 {
 #username2,
 #psw-repeat,
 #name,
-#display-name {
+#first-name, #last-name {
     border: none;
     border-bottom: 2px solid #006400;
     border-radius: 0%;
