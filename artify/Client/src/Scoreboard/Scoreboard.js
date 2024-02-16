@@ -1,23 +1,32 @@
 import './Scoreboard.css'
 import React from 'react';
 import Menu from '../Menu/Menu';
-const highScores = [
-    { name: 'Bill', score: 123 },
-    { name: 'Garry', score: 34 },
-    { name: 'Al', score: 33 },
-    { name: 'B', score: 32 },
-    { name: 'C', score: 31 },
-    { name: 'E', score: 30 },
-    { name: 'D', score: 29 },
-    { name: 'F', score: 27 },
-    { name: 'K', score: 24 },
-    { name: 'H', score: 23 }
-    // ... other player data
-  ];
+import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useToken } from '../TokenContext';
 function Scoreboard() {
+  const { token } = useToken();
+  const [users, setUsers] = useState([]);
+  console.log(token)
+  useEffect(() => {
+    fetch('http://localhost:5000/api/user/above_average', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // replace YOUR_ACCESS_TOKEN with the actual token
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      setUsers(data.above_average_users);
+      console.log(data)
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, []);
     return (
         <div>
-          <Menu />
+          <Menu token={token}/>
         <div className="wrapper">
         <h2>Top Learners:</h2>
           <table>
@@ -25,9 +34,9 @@ function Scoreboard() {
               <th>Username</th>
               <th>XP</th>
             </tr>
-            {highScores.map((player, index) => (
+            {users.map((player, index) => (
               <tr key={index}>
-                <td>{player.name}</td>
+                <td>{player.username}</td>
                 <td>{player.score}</td>
               </tr>
             ))}

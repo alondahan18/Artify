@@ -4,6 +4,7 @@ import { Card, Container, Row, Col, ListGroup, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 
@@ -19,11 +20,41 @@ function Filters() {
     const [selectedGender, setSelectedGender] = useState([]);
     const [minYear, setMinYear] = useState('');
     const [maxYear, setMaxYear] = useState('');
+    const [filtersData, setFiltersData] = useState(null);
     const [selectedDimensions, setSelectedDimensions] = useState([]);
     const [selectedSpecial, setSelectedSpecial] = useState('None');
     console.log(selectedSpecial)
     const token = location.state.token;
-    console.log(token);
+    
+    useEffect(() => {
+      fetchFilters();
+    }, []);
+
+
+    const fetchFilters = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/artworks/filters', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Assuming token is defined within your component
+          }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          setFiltersData(data);
+          // Handle the response data as needed
+        } else {
+          console.error('Failed to fetch filters:', response.statusText);
+          // Handle error
+        }
+      } catch (error) {
+        console.error('Error fetching filters:', error.message);
+        // Handle error
+      }
+    };
+    console.log(filtersData)
     const handleSpecialFilterChange = (event) => {
       setSelectedSpecial(event.target.value);
   };
@@ -122,9 +153,13 @@ function Filters() {
 
  
 
-  const artistOptions = ['Artist 1', 'Artist 2', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3','Artist 3','Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3'];
-  const nationOptions = ['Artist 1', 'Artist 2', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3','Artist 3','Artist 3', 'Artist 3', 'Artist 3', 'Artist 3', 'Artist 3'];
+    const artistOptions = filtersData ? filtersData.artist_names : [];
 
+  const nationOptions = filtersData ? filtersData.artist_nationalities : [];
+  const typeOptions = filtersData ? filtersData.artwork_classification : [];
+  const mediumOptions = filtersData ? filtersData.artwork_medium : [];
+  const periodOptions = filtersData ? filtersData.artwork_period : [];
+  const cultureOptions = filtersData ? filtersData.artwork_culture : [];
   return (
     <div>
       <Menu />
@@ -250,7 +285,7 @@ function Filters() {
             <Card.Body>
             <Card.Title>Choose Period of time</Card.Title>
             <ListGroup className="artist-list" variant="flush">
-                {nationOptions.map((period, index) => (
+                {periodOptions.map((period, index) => (
                 <ListGroup.Item key={index} action onClick={() => togglePeriod(period)}>
                     {period}
                 </ListGroup.Item>
@@ -303,7 +338,7 @@ function Filters() {
             <Card.Body>
             <Card.Title>Choose Cultures</Card.Title>
             <ListGroup className="artist-list" variant="flush">
-                {nationOptions.map((culture, index) => (
+                {cultureOptions.map((culture, index) => (
                 <ListGroup.Item key={index} action onClick={() => toggleCulture(culture)}>
                     {culture}
                 </ListGroup.Item>
@@ -324,7 +359,7 @@ function Filters() {
             <Card.Body>
             <Card.Title>Choose Types of art</Card.Title>
             <ListGroup className="artist-list" variant="flush">
-                {nationOptions.map((type, index) => (
+                {typeOptions.map((type, index) => (
                 <ListGroup.Item key={index} action onClick={() => toggleType(type)}>
                     {type}
                 </ListGroup.Item>
@@ -345,7 +380,7 @@ function Filters() {
             <Card.Body>
             <Card.Title>Choose Mediums</Card.Title>
             <ListGroup className="artist-list" variant="flush">
-                {nationOptions.map((medium, index) => (
+                {mediumOptions.map((medium, index) => (
                 <ListGroup.Item key={index} action onClick={() => toggleMedium(medium)}>
                     {medium}
                 </ListGroup.Item>

@@ -142,7 +142,7 @@ def delete_user():
 @jwt_required()
 def get_users_above_average():
     db = get_db()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
 
     # Get users with a score above the average using a nested subquery
     above_avg_query = """

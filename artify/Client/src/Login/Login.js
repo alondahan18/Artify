@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css'
 import { Link, useNavigate } from "react-router-dom";
+import { useToken } from '../TokenContext';
 
 function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { setToken } = useToken();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,6 +28,7 @@ function Login() {
             // If login is successful, navigate to home page
             const responseData = await response.json();
             const token = responseData.access_token;
+            setToken(token);
             navigate('/Filters', { state: {token: token}});
         } catch (error) {
             alert(error.message);
