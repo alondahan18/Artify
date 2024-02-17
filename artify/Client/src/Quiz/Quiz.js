@@ -190,9 +190,9 @@ console.log(list)
       // Construct the request payload
       const payload = {
         learned_artwork_ids: artworksLearned,
-        experience_points: userScore + artworksLearned.length * 5
+        experience_points: artworksLearned.length * 5
       };
-      updateUserScore(payload.experience_points);
+      updateUserScore(payload.experience_points + userScore);
       // Make the POST request
       fetch('http://localhost:5000/api/artworks/update_test_results', {
         method: 'POST',
