@@ -115,26 +115,27 @@ def delete_user():
     return jsonify({'message': 'User deleted successfully'})
 
 
-# Route to get the top 10 users
-# @user_blueprint.route('/scores', methods=['GET'])
-# @jwt_required()
-# def get_top_users():
-#     # current_user = get_jwt_identity()  # Get the identity of the current user if needed
+# Route to get the scores
+@user_blueprint.route('/score', methods=['GET'])
+@jwt_required()
+def get_user_score():
+    current_user = get_jwt_identity()
 
-#     db = get_db()
-#     cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor()
 
-#     # Execute the SQL query
-#     select_query = "SELECT username, score FROM users ORDER BY score DESC LIMIT 10"
-#     cursor.execute(select_query)
-#     top_users = cursor.fetchall()
+    # Execute the SQL query
+    select_query = "SELECT score FROM users WHERE username = %s"
+    cursor.execute(select_query, (current_user,))
+    user_score = cursor.fetchone()  # Fetch a single row
 
-#     cursor.close()
+    cursor.close()
 
-#     # Convert the result to a list of dictionaries
-#     top_users_list = [{'username': user[0], 'score': user[1]} for user in top_users]
-
-#     return jsonify(top_users_list)
+    if user_score:
+        score = user_score[0]  # Assuming the score is in the first column
+        return jsonify({'score': score})
+    else:
+        return jsonify({'message': 'User score not found'}), 404
 
 
 # Route to get the users with a score above the average

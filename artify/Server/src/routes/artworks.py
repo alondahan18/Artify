@@ -30,7 +30,7 @@ def get_learned_artworks():
     cursor.close()
 
     # Convert the result to a list of dictionaries using column names
-    artworks_list = [{'objectId': artwork['objectId'], 'title': artwork['title'], 'artist_name': artwork['artist_name']} for artwork in learned_artworks]
+    artworks_list = [{'objectId': artwork[0], 'title': artwork[1], 'objectName': artwork[2], 'culture': artwork[3], 'period': artwork[4], 'dynasty': artwork[5], 'objectBeginDate': artwork[6], 'objectEndDate': artwork[7], 'medium': artwork[8], 'classification': artwork[9], 'primaryImage': artwork[10],  'artist_name': artwork[11]} for artwork in learned_artworks]
 
     return jsonify({'learned_artworks': artworks_list})
 
@@ -53,6 +53,7 @@ def get_unique_lists():
     SELECT DISTINCT 'artwork_period' AS columnName, artwork.period AS filterOption FROM artwork
     UNION 
     SELECT DISTINCT 'artwork_medium' AS columnName, artwork.medium AS filterOption FROM artwork
+    ORDER BY filterOption;
     """
 
     cursor.execute(select_query)

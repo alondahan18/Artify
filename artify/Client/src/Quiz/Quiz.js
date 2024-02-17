@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Quiz.css';
 import Menu from '../Menu/Menu';
+import { useToken } from '../TokenContext';
 
-const list = [
-  { image: "/images/artists.jpg", artist: "artist1", title: "title1", year: "year1" },
-  { image: "/images/gender.png", artist: "artist2", title: "title2", year: "year2" },
-  { image: "/images/time_range.jpg", artist: "artist3", title: "title3", year: "year3" },
-  { image: "/images/period.jpg", artist: "artist4", title: "title4", year: "year4" }
-];
+
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -49,6 +45,30 @@ const imgIndices = generateShuffledIndices();
 
 
 function Quiz() {
+  const { token, userScore, updateUserScore } = useToken();
+  const location = useLocation();
+  const quizData = location.state.quizData;
+
+  const jsonObjects = [];
+
+// Loop through each inner array
+for (let i = 0; i < quizData.length; i++) {
+  const innerArray = quizData[i];
+  
+  // Construct a JSON object for each inner array
+  const jsonObject = {
+    image: innerArray[10],
+    artist: innerArray[11],
+    title: innerArray[1],
+    year: innerArray[6],
+    objectID: innerArray[0]
+  };
+  
+  // Push the JSON object into the array of JSON objects
+  jsonObjects.push(jsonObject);
+}
+const list = jsonObjects;
+console.log(list)
   var imgIndex = imgIndices[11]
   const [question, setQuestion] = useState(1);
   if (question <= 12) {
@@ -62,7 +82,7 @@ function Quiz() {
   const [count2, setCount2] = useState(0);  
   const [count3, setCount3] = useState(0);  
   const [count4, setCount4] = useState(0);
-  console.log(artworksLearned);
+  
   
   const navigate = useNavigate();
 
@@ -77,27 +97,52 @@ function Quiz() {
     });
   };
 
+  useEffect(() => {
+    const checkAndUpdateArtworkLearned = () => {
+      if (count1 === 3 && !artworksLearned.includes(list[0].objectID)) {
+        setArtworksLearned(prevArtworks => [...prevArtworks, list[0].objectID]);
+      }
+      if (count2 === 3 && !artworksLearned.includes(list[1].objectID)) {
+        setArtworksLearned(prevArtworks => [...prevArtworks, list[1].objectID]);
+      }
+      if (count3 === 3 && !artworksLearned.includes(list[2].objectID)) {
+        setArtworksLearned(prevArtworks => [...prevArtworks, list[2].objectID]);
+      }
+      if (count4 === 3 && !artworksLearned.includes(list[3].objectID)) {
+        setArtworksLearned(prevArtworks => [...prevArtworks, list[3].objectID]);
+      }
+    };
+  
+    checkAndUpdateArtworkLearned();
+  }, [count1, count2, count3, count4, artworksLearned, list]);
+
   const handleButtonClick = (chosenOption) => {
     if (quizComplete) {
       return;
     }
-
-    setQuestion(question + 1);
+    if (question < 12) {
+      setQuestion(question + 1);
+    } 
   
     const updateCounts = () => {
       if (imgIndex === 0) {
-        setCount1(count1 + 1);
+        setCount1(prevCount => prevCount + 1);
       }
       if (imgIndex === 1) {
-        setCount2(count2 + 1);
+        setCount2(prevCount => prevCount + 1);
       }
       if (imgIndex === 2) {
-        setCount3(count3 + 1);
+        setCount3(prevCount => prevCount + 1);
       }
       if (imgIndex === 3) {
-        setCount4(count4 + 1);
+        setCount4(prevCount => prevCount + 1);
       }
     };
+  
+    
+  
+    // Update correctAnswers and counts based on chosenOption and question number...
+  
     
     if (question % 3 === 1 && chosenOption === list[imgIndex].artist) {
       setCorrectAnswers(correctAnswers + 1);
@@ -109,30 +154,19 @@ function Quiz() {
       setCorrectAnswers(correctAnswers + 1);
       updateCounts();
     }
+    setChosenAnswer(null);
+
 
     
 
     if (question === 12) {
-      setQuizComplete(true);
 
       setTimeout(() => {
-        navigate('/Filters');
-      }, 3500);
+        setQuizComplete(true);
+      }, 200);
     }
 
-    setChosenAnswer(null);
-    if (count1 === 3) {
-      addArtwork(list[0].title);
-    }
-    if (count2 === 3) {
-      addArtwork(list[1].title);
-    }
-    if (count3 === 3) {
-      addArtwork(list[2].title);
-    }
-    if (count4 === 3) {
-      addArtwork(list[3].title);
-    }
+    
     
   };
 
@@ -151,7 +185,37 @@ function Quiz() {
   }
 
   const img = list[imgIndex].image;
-
+  useEffect(() => {
+    if (quizComplete) {
+      // Construct the request payload
+      const payload = {
+        learned_artwork_ids: artworksLearned,
+        experience_points: userScore + artworksLearned.length * 5
+      };
+      updateUserScore(payload.experience_points);
+      // Make the POST request
+      fetch('http://localhost:5000/api/artworks/update_test_results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to update test results');
+          }
+          // Proceed with navigation after the request is successful
+          setTimeout(() => {
+            navigate('/Filters');
+          }, 3500);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  }, [quizComplete]); // Add quizComplete as a dependency
   return (
     <div>
       {quizComplete ? (

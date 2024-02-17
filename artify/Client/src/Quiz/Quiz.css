@@ -2,14 +2,11 @@
 
 /* Add the following styles */
 #quizImage {
-    margin-left: 20%;
-    margin-right: 20%;
-    align-items: center;
-    display: block;
-    margin: 0 auto; /* Center the image */
-    width: 95%; /* Make the image take up 100% of the container width */
-    height: 350px;
-    border-radius: 2.5%;
+  max-width: 100%; /* Limit the maximum width */
+  max-height: 350px; /* Limit the maximum height */
+  display: block;
+  margin: 0 auto; /* Center the image */
+  border-radius: 2.5%;
 }
 .question {
     text-align: center;

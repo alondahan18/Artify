@@ -19,8 +19,14 @@
 }
 
 .xp {
-  margin-left: 15px;
+  margin-right: 0px;
+}
+.sb {
+  margin-left: 10px;
 }
 .menu-container i {
     margin-left: 1px;
+}
+.dl  {
+  color: red !important
 }

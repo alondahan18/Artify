@@ -1,27 +1,34 @@
 /* ArtGallery.css */
 .art-gallery-row {
-    margin-left: 2.5%; /* Offset for Bootstrap gutter width */
+  margin-left: 2.5%; /* Offset for Bootstrap gutter width */
+}
 
-  }
-  
+.card {
+  margin: 0 0.5% 1% 0.5%; /* Adjust the margin as needed */
+}
+
+.card-img {
+  max-height: 250px; /* Limit the maximum height */
+  max-width: 100%; /* Limit the maximum width */
+  width: auto; /* Ensure image aspect ratio is maintained */
+  height: auto; /* Ensure image aspect ratio is maintained */
+  object-fit: contain; /* Ensure the entire image fits within the specified height */
+}
+
+/* Optional: Adjust the width of the card to fit 3 cards in a row with equal spacing */
+@media (min-width: 768px) {
   .card {
-    margin: 0 0.5% 1% 0.5%; /* Adjust the margin as needed */
-  }
-  
-  .card-img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-  }
-  
-  /* Optional: Adjust the width of the card to fit 3 cards in a row with equal spacing */
-  @media (min-width: 768px) {
-    .card {
       width: calc(33.3333% - 15px); /* Calculate width for 3 cards in a row with equal spacing */
-    }
   }
-  .card-img-top {
+}
+.card-img-top {
   height: 250px; /* Set your desired fixed height */
   object-fit: cover; /* Maintain the image's aspect ratio and cover the entire container */
 }
-  
+
+.enlarged-img {
+  max-width: 100%; /* Limit the maximum width of the enlarged image */
+  max-height: 80vh; /* Limit the maximum height of the enlarged image to 80% of viewport height */
+  display: block; /* Ensure the image is displayed as a block element */
+  margin: 0 auto; /* Center the image horizontally */
+}

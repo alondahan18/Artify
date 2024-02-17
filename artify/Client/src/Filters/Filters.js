@@ -3,14 +3,16 @@ import Menu from '../Menu/Menu';
 import { Card, Container, Row, Col, ListGroup, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useToken } from '../TokenContext';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 
 function Filters() {
-  const location = useLocation();
+    const navigate = useNavigate();
     const [selectedArtists, setSelectedArtists] = useState([]);
     const [selectedNations, setSelectedNations] = useState([]);
     const [selectedPeriods, setSelectedPeriods] = useState([]);
@@ -20,44 +22,51 @@ function Filters() {
     const [selectedGender, setSelectedGender] = useState([]);
     const [minYear, setMinYear] = useState('');
     const [maxYear, setMaxYear] = useState('');
-    const [filtersData, setFiltersData] = useState(null);
     const [selectedDimensions, setSelectedDimensions] = useState([]);
     const [selectedSpecial, setSelectedSpecial] = useState('None');
-    console.log(selectedSpecial)
-    const token = location.state.token;
-    
-    useEffect(() => {
-      fetchFilters();
-    }, []);
+    console.log(selectedArtists)
+    const {token, filtersData} = useToken();
+    console.log(token)
 
 
-    const fetchFilters = async () => {
+    const applyFilters = async () => {
+      const requestData = {
+          artist_names: selectedArtists,
+          artist_nationalities: selectedNations,
+          artwork_culture: selectedCultures,
+          artwork_classification: selectedTypes,
+          artwork_period: selectedPeriods,
+          artwork_medium: selectedMediums,
+          get_oldest_artworks: selectedSpecial === "Earliest Artworks",
+          get_different_countries: selectedSpecial === "Artistic Cross-Cultural Influences"
+      };
+
       try {
-        const response = await fetch('http://localhost:5000/api/artworks/filters', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Assuming token is defined within your component
+          const response = await fetch('http://localhost:5000/api/artworks/filter_results', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+              },
+              body: JSON.stringify(requestData)
+          });
+
+          if (response.ok) {
+              const filteredChoices = await response.json();
+              // Do something with filteredChoices
+              navigate('/Studying', {state: {filteredChoices: filteredChoices}})
+          } else {
+              console.error('Failed to apply filters');
           }
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          setFiltersData(data);
-          // Handle the response data as needed
-        } else {
-          console.error('Failed to fetch filters:', response.statusText);
-          // Handle error
-        }
       } catch (error) {
-        console.error('Error fetching filters:', error.message);
-        // Handle error
+          console.error('Error applying filters:', error);
       }
-    };
-    console.log(filtersData)
+  };
+    
     const handleSpecialFilterChange = (event) => {
       setSelectedSpecial(event.target.value);
   };
+  console.log(selectedSpecial)
 
     const toggleDimension = (dimension) => {
     const isSelected = selectedDimensions.includes(dimension);
@@ -180,7 +189,12 @@ function Filters() {
             <Card.Title>Choose Artists</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {artistOptions.map((artist, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleArtist(artist)}>
+                <ListGroup.Item
+                key={index}
+                action
+                onClick={() => toggleArtist(artist)}
+                className={selectedArtists.includes(artist) ? 'selected' : ''}
+              >
                     {artist}
                 </ListGroup.Item>
                 ))}
@@ -201,7 +215,7 @@ function Filters() {
             <Card.Title>Choose Nationalities</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {nationOptions.map((nation, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleNation(nation)}>
+                <ListGroup.Item key={index} action onClick={() => toggleNation(nation)} className={selectedNations.includes(nation) ? 'selected' : ''}>
                     {nation}
                 </ListGroup.Item>
                 ))}
@@ -286,7 +300,7 @@ function Filters() {
             <Card.Title>Choose Period of time</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {periodOptions.map((period, index) => (
-                <ListGroup.Item key={index} action onClick={() => togglePeriod(period)}>
+                <ListGroup.Item key={index} action onClick={() => togglePeriod(period)} className={selectedPeriods.includes(period) ? 'selected' : ''}>
                     {period}
                 </ListGroup.Item>
                 ))}
@@ -339,7 +353,7 @@ function Filters() {
             <Card.Title>Choose Cultures</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {cultureOptions.map((culture, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleCulture(culture)}>
+                <ListGroup.Item key={index} action onClick={() => toggleCulture(culture)} className={selectedCultures.includes(culture) ? 'selected' : ''}>
                     {culture}
                 </ListGroup.Item>
                 ))}
@@ -360,7 +374,7 @@ function Filters() {
             <Card.Title>Choose Types of art</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {typeOptions.map((type, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleType(type)}>
+                <ListGroup.Item key={index} action onClick={() => toggleType(type)} className={selectedTypes.includes(type) ? 'selected' : ''}>
                     {type}
                 </ListGroup.Item>
                 ))}
@@ -381,7 +395,7 @@ function Filters() {
             <Card.Title>Choose Mediums</Card.Title>
             <ListGroup className="artist-list" variant="flush">
                 {mediumOptions.map((medium, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleMedium(medium)}>
+                <ListGroup.Item key={index} action onClick={() => toggleMedium(medium)} className={selectedMediums.includes(medium) ? 'selected' : ''}>
                     {medium}
                 </ListGroup.Item>
                 ))}
@@ -433,7 +447,7 @@ function Filters() {
         </Row>
       </Container>
       <div className="quiz-button-container">
-          <Link to='/Studying'><button className="start-filter-button">Apply filters</button></Link>
+          <button className="start-filter-button" onClick={applyFilters}>Apply filters</button>
         </div>
     </div>
   );

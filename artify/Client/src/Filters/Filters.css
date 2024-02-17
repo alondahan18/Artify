@@ -53,5 +53,10 @@
   .start-filter-button:hover {
     background-color: #004d00; /* Darker color on hover */
   }
+
+  .selected {
+    background-color: #004d00 !important;
+    color: white !important;
+  }
   
   
