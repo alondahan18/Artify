@@ -182,7 +182,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/artists.jpg"
+              src="/images/artists2.jpg"
               className="card-img"
             />
             <Card.Body>
@@ -261,7 +261,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/time_range.jpg"
+              src="/images/time_range2.jpg"
               className="card-img"
             />
             <Card.Body>
@@ -293,7 +293,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/period.jpg"
+              src="/images/period2.jpg"
               className="card-img"
             />
             <Card.Body>
@@ -314,7 +314,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/dimensions.jpg"
+              src="/images/dimensions3.jpg"
               className="card-img"
             />
              <Card.Body>
@@ -346,7 +346,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/culture.jpg"
+              src="/images/culture2.jpg"
               className="card-img"
             />
             <Card.Body>
@@ -367,7 +367,7 @@ function Filters() {
             <Card className="filter-card" style={{ width: '25rem' }}>
             <Card.Img
               variant="top"
-              src="/images/Type.jpg"
+              src="/images/Type2.jpg"
               className="card-img"
             />
             <Card.Body>

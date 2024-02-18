@@ -21,11 +21,11 @@ const ArtGallery = ({ artObjects }) => {
       <Row xs={1} md={3} className="g-4 art-gallery-row">
         {artObjects.map((artwork, index) => (
           <Col key={index}>
-            <Card className="mb-4" style={{ width: '25rem' }}>
+            <Card className="mb-4 special" style={{ width: '25rem' }}>
               <Card.Img
                 variant="top"
                 src={artwork[10]} // Primary image URL
-                className="card-img"
+                className="card-img special_img"
                 onClick={() => openModal(artwork[10])} // Open modal on image click
               />
               <Card.Body>

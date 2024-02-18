@@ -234,7 +234,7 @@ else {
       // Construct the request payload
       const payload = {
         learned_artwork_ids: artworksLearned,
-        experience_points: artworksLearned.length * 5
+        experience_points: artworksLearned.length * 10 + correctAnswers * 5
       };
       updateUserScore(payload.experience_points + userScore);
       // Make the POST request

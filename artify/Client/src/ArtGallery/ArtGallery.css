@@ -12,7 +12,17 @@
   max-width: 100%; /* Limit the maximum width */
   width: auto; /* Ensure image aspect ratio is maintained */
   height: auto; /* Ensure image aspect ratio is maintained */
-  object-fit: contain; /* Ensure the entire image fits within the specified height */
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+}
+.special_img {
+  width: 100%; /* Ensure image aspect ratio is maintained */
+  height: fit-content; /* Ensure image aspect ratio is maintained */
+}
+.special_img:hover {
+  opacity: 0.7; /* Add a slight opacity change on hover */
+  cursor: zoom-in; /* Change the cursor to zoom-in icon */
 }
 
 /* Optional: Adjust the width of the card to fit 3 cards in a row with equal spacing */
@@ -23,7 +33,7 @@
 }
 .card-img-top {
   height: 250px; /* Set your desired fixed height */
-  object-fit: cover; /* Maintain the image's aspect ratio and cover the entire container */
+  object-fit:contain; /* Maintain the image's aspect ratio and cover the entire container */
 }
 
 .enlarged-img {
