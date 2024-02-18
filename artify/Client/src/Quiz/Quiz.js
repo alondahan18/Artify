@@ -41,10 +41,12 @@ function generateShuffledIndices() {
 
 
 
-const imgIndices = generateShuffledIndices();
 
 
 function Quiz() {
+  const localArtists = ["Henri Matisse", "René François Ghislain Magritte", "Andy Warhol", "Salvador Dali", "Edvard Munch", "Johannes Vermeer", "Claude Monet"]
+  const localYears = ["2020", "1983", "1576", "1899", "1921", "1945", "1753", "1880", "1900", "1901", "2001", "1920"]
+  const localTitles = ["Mona Lisa", "Guernica", "The Naked Maja", "Wanderer above the Sea of Fog", "The Raft of the Medusa", "Nude Descending a Staircase"]
   const { token, userScore, updateUserScore } = useToken();
   const location = useLocation();
   const quizData = location.state.quizData;
@@ -68,10 +70,24 @@ for (let i = 0; i < quizData.length; i++) {
   jsonObjects.push(jsonObject);
 }
 const list = jsonObjects;
+const len = list.length
+var imgIndices
 console.log(list)
-  var imgIndex = imgIndices[11]
+if (len === 4) {
+  imgIndices = generateShuffledIndices();
+}
+else if (len === 3) {
+  imgIndices = [0, 2, 0, 1, 1, 2, 2, 0, 1]
+}
+else if (len === 2) {
+  imgIndices = [0, 0, 1, 1, 1, 0]
+}
+else {
+  imgIndices = [0, 0, 0]
+}
+  var imgIndex = imgIndices[len*3-1]
   const [question, setQuestion] = useState(1);
-  if (question <= 12) {
+  if (question <= len*3) {
     imgIndex = imgIndices[question-1]
   }
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -85,6 +101,34 @@ console.log(list)
   
   
   const navigate = useNavigate();
+
+  const getDistinctOptions = (options, localOptions) => {
+    const distinctOptions = [];
+    options.forEach(option => {
+      if (!distinctOptions.includes(option)) {
+        distinctOptions.push(option);
+      } else {
+        // If option is not distinct, replace it with a random value from localOptions
+        const randomIndex = Math.floor(Math.random() * localOptions.length);
+        distinctOptions.push(localOptions[randomIndex]);
+        localOptions.splice(randomIndex, 1); // Remove the used value from localOptions
+      }
+    });
+    
+    // If distinctOptions has less than 4 options, add random options from localOptions until there are 4
+    while (distinctOptions.length < 4 && localOptions.length > 0) {
+      const randomIndex = Math.floor(Math.random() * localOptions.length);
+      distinctOptions.push(localOptions[randomIndex]);
+      localOptions.splice(randomIndex, 1); // Remove the used value from localOptions
+    }
+    
+    // If distinctOptions still has less than 4 options, repeat options from the beginning to fill
+    while (distinctOptions.length < 4) {
+      distinctOptions.push(distinctOptions[distinctOptions.length - 4]);
+    }
+    
+    return distinctOptions;
+  };
 
   const addArtwork = (newArtwork) => {
     setArtworksLearned((prevArtworks) => {
@@ -120,7 +164,7 @@ console.log(list)
     if (quizComplete) {
       return;
     }
-    if (question < 12) {
+    if (question < len*3) {
       setQuestion(question + 1);
     } 
   
@@ -159,7 +203,7 @@ console.log(list)
 
     
 
-    if (question === 12) {
+    if (question === len*3) {
 
       setTimeout(() => {
         setQuizComplete(true);
@@ -175,13 +219,13 @@ console.log(list)
 
   if (question % 3 === 1) {
     questionText = "Who's the artist?";
-    answerOptions = shuffleArray(list.map(item => item.artist));
+    answerOptions = getDistinctOptions(shuffleArray(list.map(item => item.artist)), localArtists);
   } else if (question % 3 === 2) {
     questionText = "What's the title?";
-    answerOptions = shuffleArray(list.map(item => item.title));
+    answerOptions = getDistinctOptions(shuffleArray(list.map(item => item.title)), localTitles);
   } else {
     questionText = "What's the year?";
-    answerOptions = shuffleArray(list.map(item => item.year));
+    answerOptions = getDistinctOptions(shuffleArray(list.map(item => item.year)), localYears);
   }
 
   const img = list[imgIndex].image;
@@ -222,14 +266,14 @@ console.log(list)
 
         <div className="centered-message">
           <div className="quizCompleteOptions">
-            <p>Quiz completed! You got {correctAnswers} out of 12 correct answers.</p>
+            <p>Quiz completed! You got {correctAnswers} out of {len*3} correct answers.</p>
             <p>Returns to filter page.</p>
           </div>
         </div>
       ) : (
         <div>
           <Menu />
-          <h2 id="title_collection" className="question">Question {question}/12</h2>
+          <h2 id="title_collection" className="question">Question {question}/{len*3}</h2>
           <span id="questionText">{questionText}</span>
           <img id="quizImage" src={img} alt="quiz" />
           <div id="answerContainer">

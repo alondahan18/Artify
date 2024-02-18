@@ -22,7 +22,12 @@ import shuffle from 'lodash.shuffle'; // Import the lodash shuffle function
     const quizData = shuffledChoices.slice(0, 4);
 
     // Navigate to the Quiz page with quizData
-    navigate('/Quiz', { state: { quizData } });
+    if (quizData.length === 0) {
+      alert("No artworks to be quizzed on, go back to home page")
+    }
+    else {
+      navigate('/Quiz', { state: { quizData } });
+    }
   };
     return (
       <div>

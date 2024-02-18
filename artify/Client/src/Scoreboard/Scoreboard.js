@@ -4,7 +4,7 @@ import Menu from '../Menu/Menu';
 import { useLocation } from 'react-router-dom';
 function Scoreboard() {
   const location = useLocation();
-  const users = location.state.users;
+  const users = location.state.users.sort((a, b) => b.score - a.score);
     return (
         <div>
           <Menu />
