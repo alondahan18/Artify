@@ -54,7 +54,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsI
 ###
 POST http://localhost:5000/api/artworks/filter_results
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NTExMywianRpIjoiODg5Y2EyMDYtMTgwYi00ZDdmLTllMWQtZDdlYWExNmQ4NDBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzUxMTMsImV4cCI6MTcwNzc3ODcxM30.FCiPk4SafzzK-N4HYNHXqy1QAmvM7qZX2fi3K4djrm4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwODI4MjU4NCwianRpIjoiN2UxZGRhYWEtYzg4MS00NWI1LTliMDAtNzQ0YzMwZWViNDBlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDgyODI1ODQsImV4cCI6MTcwODI4NjE4NH0.kSuzu7W-TjzixxGZ8hf6FQGbpb3392hLUW9ghitQhbI
 
 {
     "artist_names": ["Pietro Santi Bartoli"],
@@ -63,6 +63,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsI
     "artwork_classification": [],
     "artwork_period": [],
     "artwork_medium": [],
+    "gender": ["Medium", "Large"],
+    "dimensions":[],
+    "time_range": {"minYear": 1660, "maxYear": 1887},
     "get_oldest_artworks": true,
     "get_different_countries": true
 }

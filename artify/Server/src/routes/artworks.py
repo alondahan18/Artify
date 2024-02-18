@@ -71,6 +71,15 @@ def get_unique_lists():
     return jsonify(unique_lists_dict)
 
 
+def get_dimensions():
+    size_to_product = {
+        'Small': (0, 400),
+        'Medium': (401, 800),
+        'Large': (801, 999999),  # Use a large number as an approximation for infinity
+    }
+    return size_to_product
+
+
 @artworks_blueprint.route('/filter_results', methods=['POST'])
 @jwt_required()
 def filter_artworks():
@@ -81,10 +90,11 @@ def filter_artworks():
     filters = request.get_json()
 
     select_query = """
-        SELECT DISTINCT artwork.*, artist.displayName AS artist_name
-        FROM artwork
-        LEFT JOIN CreatedBy ON CreatedBy.ObjectID = artwork.objectID
-        LEFT JOIN artist ON artist.artistID = CreatedBy.artistID
+    SELECT DISTINCT artwork.*, artist.displayName AS artist_name, Measurements.height, Measurements.length, Measurements.width
+    FROM artwork
+    LEFT JOIN CreatedBy ON CreatedBy.ObjectID = artwork.objectID
+    LEFT JOIN artist ON artist.artistID = CreatedBy.artistID
+    LEFT JOIN Measurements ON artwork.objectID = Measurements.objectID
     """
 
     conditions = []
@@ -108,11 +118,33 @@ def filter_artworks():
         elif key == 'artwork_medium':
             if values:
                 conditions.append(f"artwork.medium IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+        elif key == 'gender':
+            if values:
+                conditions.append(f"artist.gender IN ({', '.join(map(lambda v: f'{v!r}', values))})")
+
+        elif key == 'time_range':
+            if values and 'minYear' in values and 'maxYear' in values:
+                min_year = values['minYear']
+                max_year = values['maxYear']
+                conditions.append(f"artwork.objectEndDate BETWEEN {min_year} AND {max_year}")
+
+        elif key == 'dimensions':
+            if values:
+                size_to_product = get_dimensions()
+                size_conditions = []
+                for size in values:
+                    if size in size_to_product:
+                        min_threshold, max_threshold = size_to_product[size]
+                        size_conditions.append(f"(COALESCE(Measurements.height, 1) * COALESCE(Measurements.length, 1) * COALESCE(Measurements.width, 1) BETWEEN {min_threshold} AND {max_threshold})")
+                if size_conditions:
+                    conditions.append(f"({' OR '.join(size_conditions)})")
+
         elif key == 'get_oldest_artworks':
             if values:  # Check if the value is True
                 conditions.append("""
                     artwork.objectEndDate = (SELECT MIN(x.objectEndDate) FROM artwork x)
                 """)
+
         elif key == 'get_different_countries': 
             if values:  # Check if the value is True
                 subquery = "SELECT artwork.objectID FROM artwork " \
