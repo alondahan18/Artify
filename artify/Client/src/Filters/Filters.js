@@ -20,8 +20,8 @@ function Filters() {
     const [selectedMediums, setSelectedMediums] = useState([]);
     const [selectedTypes, setSelectedTypes] = useState([]);
     const [selectedGender, setSelectedGender] = useState([]);
-    const [minYear, setMinYear] = useState('');
-    const [maxYear, setMaxYear] = useState('');
+    const [minYear, setMinYear] = useState(0);
+    const [maxYear, setMaxYear] = useState(2024);
     const [selectedDimensions, setSelectedDimensions] = useState([]);
     const [selectedSpecial, setSelectedSpecial] = useState('None');
     console.log(selectedArtists)
@@ -30,6 +30,10 @@ function Filters() {
 
 
     const applyFilters = async () => {
+      const years = {
+        minYear: parseInt(minYear),
+        maxYear: parseInt(maxYear)
+      }
       const requestData = {
           artist_names: selectedArtists,
           artist_nationalities: selectedNations,
@@ -37,6 +41,9 @@ function Filters() {
           artwork_classification: selectedTypes,
           artwork_period: selectedPeriods,
           artwork_medium: selectedMediums,
+          gender: selectedGender,
+          dimensions: selectedDimensions,
+          time_range: years,
           get_oldest_artworks: selectedSpecial === "Earliest Artworks",
           get_different_countries: selectedSpecial === "Artistic Cross-Cultural Influences"
       };
