@@ -160,6 +160,13 @@ else {
     checkAndUpdateArtworkLearned();
   }, [count1, count2, count3, count4, artworksLearned, list]);
 
+  const handleCheat = () => {
+    const allArtworkIds = list.map(item => item.objectID);
+    setArtworksLearned(allArtworkIds);
+    setCorrectAnswers(list.length * 3);
+    setQuizComplete(true);
+  };
+
   const handleButtonClick = (chosenOption) => {
     if (quizComplete) {
       return;
@@ -273,6 +280,7 @@ else {
       ) : (
         <div>
           <Menu />
+          <button id="cheat" onClick={handleCheat}>cheat button</button>
           <h2 id="title_collection" className="question">Question {question}/{len*3}</h2>
           <span id="questionText">{questionText}</span>
           <img id="quizImage" src={img} alt="quiz" />

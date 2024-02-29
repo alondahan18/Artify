@@ -295,26 +295,7 @@ function Filters() {
             </Card>
           </Col>
 
-          {/* Filter 5 - Time period */}
-          <Col>
-            <Card className="filter-card" style={{ width: '25rem' }}>
-            <Card.Img
-              variant="top"
-              src="/images/period2.jpg"
-              className="card-img"
-            />
-            <Card.Body>
-            <Card.Title>Choose Period of time</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {periodOptions.map((period, index) => (
-                <ListGroup.Item key={index} action onClick={() => togglePeriod(period)} className={selectedPeriods.includes(period) ? 'selected' : ''}>
-                    {period}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
-            </Card.Body>
-            </Card>
-          </Col>
+         
 
           {/* Filter 6 - Dimensions */}
           <Col>
@@ -348,26 +329,7 @@ function Filters() {
             </Card>
           </Col>
 
-          {/* Filter 7 - Culture */}
-          <Col>
-            <Card className="filter-card" style={{ width: '25rem' }}>
-            <Card.Img
-              variant="top"
-              src="/images/culture2.jpg"
-              className="card-img"
-            />
-            <Card.Body>
-            <Card.Title>Choose Cultures</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {cultureOptions.map((culture, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleCulture(culture)} className={selectedCultures.includes(culture) ? 'selected' : ''}>
-                    {culture}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
-            </Card.Body>
-            </Card>
-          </Col>
+          
 
           {/* Filter 8 - Type of art */}
           <Col>
