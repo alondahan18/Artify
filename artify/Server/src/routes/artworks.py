@@ -5,6 +5,48 @@ from db import get_db
 artworks_blueprint = Blueprint('artworks', __name__, url_prefix='/api/artworks')
 
 
+@artworks_blueprint.route('/all_learned', methods=['GET'])
+@jwt_required()
+def get_all_learned_artworks():
+    db = get_db()
+    cursor = db.cursor()
+
+    # Get the distinct artworks learned by any user with artist names
+    select_query = """
+    SELECT DISTINCT artwork.*, artist.displayName AS artist_name
+    FROM artwork
+    JOIN userArtworkLearn ON artwork.objectId = userArtworkLearn.objectId
+    JOIN users ON users.userId = userArtworkLearn.userId
+    JOIN CreatedBy ON artwork.objectId = CreatedBy.objectId
+    JOIN artist ON CreatedBy.artistId = artist.artistId
+    """
+
+    cursor.execute(select_query)
+    learned_artworks = cursor.fetchall()
+
+    cursor.close()
+
+    # Convert the result to a list of dictionaries using column names
+    artworks_list = [
+        {
+            'objectId': artwork[0],
+            'title': artwork[1],
+            'objectName': artwork[2],
+            'dynasty': artwork[3],
+            'objectBeginDate': artwork[4],
+            'objectEndDate': artwork[5],
+            'medium': artwork[6],
+            'classification': artwork[7],
+            'primaryImage': artwork[8],
+            'artist_name': artwork[9]
+        }
+        for artwork in learned_artworks
+    ]
+
+    return jsonify({'all_learned_artworks': artworks_list})
+
+
+
 @artworks_blueprint.route('/learned', methods=['GET'])
 @jwt_required()
 def get_learned_artworks():
@@ -30,7 +72,7 @@ def get_learned_artworks():
     cursor.close()
 
     # Convert the result to a list of dictionaries using column names
-    artworks_list = [{'objectId': artwork[0], 'title': artwork[1], 'objectName': artwork[2], 'culture': artwork[3], 'period': artwork[4], 'dynasty': artwork[5], 'objectBeginDate': artwork[6], 'objectEndDate': artwork[7], 'medium': artwork[8], 'classification': artwork[9], 'primaryImage': artwork[10],  'artist_name': artwork[11]} for artwork in learned_artworks]
+    artworks_list = [{'objectId': artwork[0], 'title': artwork[1], 'objectName': artwork[2], 'dynasty': artwork[3], 'objectBeginDate': artwork[4], 'objectEndDate': artwork[5], 'medium': artwork[6], 'classification': artwork[7], 'primaryImage': artwork[8], 'artist_name': artwork[9]} for artwork in learned_artworks]
 
     return jsonify({'learned_artworks': artworks_list})
 
@@ -46,12 +88,8 @@ def get_unique_lists():
     UNION 
     SELECT DISTINCT 'artist_nationalities' AS columnName, artist.nationality AS filterOption FROM artist
     UNION 
-    SELECT DISTINCT 'artwork_culture' AS columnName, artwork.culture AS filterOption FROM artwork
-    UNION 
     SELECT DISTINCT 'artwork_classification' AS columnName, artwork.classification AS filterOption FROM artwork
-    UNION 
-    SELECT DISTINCT 'artwork_period' AS columnName, artwork.period AS filterOption FROM artwork
-    UNION 
+    UNION  
     SELECT DISTINCT 'artwork_medium' AS columnName, artwork.medium AS filterOption FROM artwork
     ORDER BY filterOption;
     """
@@ -90,7 +128,7 @@ def filter_artworks():
     filters = request.get_json()
 
     select_query = """
-    SELECT DISTINCT artwork.*, artist.displayName AS artist_name, Measurements.height, Measurements.length, Measurements.width
+    SELECT DISTINCT artwork.*, artist.displayName AS artist_name
     FROM artwork
     LEFT JOIN CreatedBy ON CreatedBy.ObjectID = artwork.objectID
     LEFT JOIN artist ON artist.artistID = CreatedBy.artistID
@@ -106,15 +144,9 @@ def filter_artworks():
         elif key == 'artist_nationalities':
             if values:
                 conditions.append(f"artist.nationality IN ({', '.join(map(lambda v: f'{v!r}', values))})")
-        elif key == 'artwork_culture':
-            if values:
-                conditions.append(f"artwork.culture IN ({', '.join(map(lambda v: f'{v!r}', values))})")
         elif key == 'artwork_classification':
             if values:
                 conditions.append(f"artwork.classification IN ({', '.join(map(lambda v: f'{v!r}', values))})")
-        elif key == 'artwork_period':
-            if values:
-                conditions.append(f"artwork.period IN ({', '.join(map(lambda v: f'{v!r}', values))})")
         elif key == 'artwork_medium':
             if values:
                 conditions.append(f"artwork.medium IN ({', '.join(map(lambda v: f'{v!r}', values))})")
@@ -144,15 +176,6 @@ def filter_artworks():
                 conditions.append("""
                     artwork.objectEndDate = (SELECT MIN(x.objectEndDate) FROM artwork x)
                 """)
-
-        elif key == 'get_different_countries': 
-            if values:  # Check if the value is True
-                subquery = "SELECT artwork.objectID FROM artwork " \
-                   "JOIN Geography g ON artwork.objectID = g.objectID " \
-                   "JOIN CreatedBy c ON artwork.objectID = c.objectID " \
-                   "JOIN Artist ar ON c.artistID = ar.artistID " \
-                   "WHERE g.country <> ar.nationality"
-                conditions.append(f"artwork.objectID IN ({subquery})")
 
     # Add condition to exclude artworks the user has already studied
     conditions.append("""

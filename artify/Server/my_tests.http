@@ -3,11 +3,11 @@ POST http://localhost:5000/api/user/register
 Content-Type: application/json
 
 {
-    "username": "user",
+    "username": "roni",
     "password": "123",
-    "firstName": "fname",
-    "lastName": "lname",
-    "gender": "m"
+    "firstName": "roni",
+    "lastName": "gotlib",
+    "gender": "Female"
 }
 
 
@@ -24,7 +24,7 @@ Content-Type: application/json
 ###
 POST http://localhost:5000/api/user/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NTExMywianRpIjoiODg5Y2EyMDYtMTgwYi00ZDdmLTllMWQtZDdlYWExNmQ4NDBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzUxMTMsImV4cCI6MTcwNzc3ODcxM30.FCiPk4SafzzK-N4HYNHXqy1QAmvM7qZX2fi3K4djrm4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIxMjcxMiwianRpIjoiNzg1NjU3NTEtODNlYi00OTM3LWJmMTktZjEzYmYxODA3ZDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMTI3MTIsImV4cCI6MTcwOTIxNjMxMn0._ctIO1FIDiPrwZi-sDfJHFLOLs4AQm2CqIQHbsIB1og
 
 ###
 POST http://localhost:5000/api/user/delete
@@ -42,38 +42,39 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NTExMywianRpIjoiODg5Y2EyMDYtMTgwYi00ZDdmLTllMWQtZDdlYWExNmQ4NDBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzUxMTMsImV4cCI6MTcwNzc3ODcxM30.FCiPk4SafzzK-N4HYNHXqy1QAmvM7qZX2fi3K4djrm4
 
 ###
+GET http://localhost:5000/api/artworks/all_learned
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIyNzEwMywianRpIjoiZjEwOGVmYmYtZjMyOS00MWUzLTk1MWQtNTkyMzI3MzFhMDc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMjcxMDMsImV4cCI6MTcwOTIzMDcwM30.y251ZtXZAsaWM3Zvri4dwYAwtjg401CUPW3pdOvZeag
+
+###
 GET http://localhost:5000/api/artworks/learned
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NTExMywianRpIjoiODg5Y2EyMDYtMTgwYi00ZDdmLTllMWQtZDdlYWExNmQ4NDBmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzUxMTMsImV4cCI6MTcwNzc3ODcxM30.FCiPk4SafzzK-N4HYNHXqy1QAmvM7qZX2fi3K4djrm4
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIxMjcxMiwianRpIjoiNzg1NjU3NTEtODNlYi00OTM3LWJmMTktZjEzYmYxODA3ZDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMTI3MTIsImV4cCI6MTcwOTIxNjMxMn0._ctIO1FIDiPrwZi-sDfJHFLOLs4AQm2CqIQHbsIB1og
 ###
 GET http://localhost:5000/api/artworks/filters
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzY3MTk3NywianRpIjoiYjFkZjk3OGEtYTNlYy00ZTg4LWEzMDctMGE4ZGQ0NGMyY2ZhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc2NzE5NzcsImV4cCI6MTcwNzY3Mjg3N30.eO18WIbuXKPAiVTg_lRB15u6Cp1wEEn0saoU8w_qymk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIyNzEwMywianRpIjoiZjEwOGVmYmYtZjMyOS00MWUzLTk1MWQtNTkyMzI3MzFhMDc2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMjcxMDMsImV4cCI6MTcwOTIzMDcwM30.y251ZtXZAsaWM3Zvri4dwYAwtjg401CUPW3pdOvZeag
 
 ###
 POST http://localhost:5000/api/artworks/filter_results
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwODI4MjU4NCwianRpIjoiN2UxZGRhYWEtYzg4MS00NWI1LTliMDAtNzQ0YzMwZWViNDBlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDgyODI1ODQsImV4cCI6MTcwODI4NjE4NH0.kSuzu7W-TjzixxGZ8hf6FQGbpb3392hLUW9ghitQhbI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIzMjEwMywianRpIjoiOTI0MTdjY2MtMjI3YS00ZjQ3LWI2MzctNGQwYWJkYzcxMzcwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMzIxMDMsImV4cCI6MTcwOTIzNTcwM30.EjDwQAST9csh-Qrm025UwbzQb1YNBMyx6EopHot-XhM
 
 {
-    "artist_names": ["Pietro Santi Bartoli"],
+    "artist_names": [],
     "artist_nationalities": [],
     "artwork_culture": [],
     "artwork_classification": [],
-    "artwork_period": [],
-    "artwork_medium": [],
-    "gender": ["Medium", "Large"],
+    "gender": [],
     "dimensions":[],
-    "time_range": {"minYear": 1660, "maxYear": 1887},
-    "get_oldest_artworks": true,
-    "get_different_countries": true
+    "time_range": {"minYear": 0, "maxYear": 1670},
+    "get_oldest_artworks": true
 }
 
 ###
 POST http://localhost:5000/api/artworks/update_test_results
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwNzc3NDA2OSwianRpIjoiZmM0NjY3MTQtYzVjMy00MzhiLWI4ZjYtNWE5NWU4NzU5YWExIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDc3NzQwNjksImV4cCI6MTcwNzc3NDk2OX0.VDt8BYfkkKSnVKU73WTEg-54G10FtRia9bInR4YpMp0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcwOTIxMjcxMiwianRpIjoiNzg1NjU3NTEtODNlYi00OTM3LWJmMTktZjEzYmYxODA3ZDA3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJvbmkiLCJuYmYiOjE3MDkyMTI3MTIsImV4cCI6MTcwOTIxNjMxMn0._ctIO1FIDiPrwZi-sDfJHFLOLs4AQm2CqIQHbsIB1og
 
 {
     "learned_artwork_ids": [],
