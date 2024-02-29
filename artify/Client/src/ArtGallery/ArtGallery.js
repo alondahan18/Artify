@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Card, Row, Col, Modal, Button } from 'react-bootstrap';
 import './ArtGallery.css';
 
+const placeholderImage = '/path/to/placeholder.jpg'; // Path to your placeholder image
+
 const ArtGallery = ({ artObjects }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -16,6 +18,11 @@ const ArtGallery = ({ artObjects }) => {
     setShowModal(false);
   };
 
+  const handleImageError = () => {
+    alert("error in loading images");
+    setSelectedImage(null); // Reset selected image if it fails to load
+  };
+
   return (
     <div>
       <Row xs={1} md={3} className="g-4 art-gallery-row">
@@ -24,17 +31,18 @@ const ArtGallery = ({ artObjects }) => {
             <Card className="mb-4 special" style={{ width: '25rem' }}>
               <Card.Img
                 variant="top"
-                src={artwork[10]} // Primary image URL
+                src={artwork[7]} // Primary image URL
+                onError={handleImageError} // Handle image loading errors
                 className="card-img special_img"
-                onClick={() => openModal(artwork[10])} // Open modal on image click
+                onClick={() => openModal(artwork[7])} // Open modal on image click
               />
               <Card.Body>
                 <Card.Title>{artwork[1]}</Card.Title> {/* Title */}
                 <Card.Text>
-                  <strong>Artist:</strong> {artwork[11]} {/* Artist */}
+                  <strong>Artist:</strong> {artwork[8]} {/* Artist */}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Year:</strong> {artwork[7]} {/* Year */}
+                  <strong>Year:</strong> {artwork[4]} {/* Year */}
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -45,7 +53,9 @@ const ArtGallery = ({ artObjects }) => {
       {/* Modal for displaying enlarged image */}
       <Modal show={showModal} onHide={closeModal} centered>
         <Modal.Body>
-          <img src={selectedImage} alt="Enlarged" className="enlarged-img" />
+          {selectedImage && (
+            <img src={selectedImage} alt="Enlarged" className="enlarged-img" />
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>

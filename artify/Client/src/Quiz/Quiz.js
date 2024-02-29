@@ -59,10 +59,10 @@ for (let i = 0; i < quizData.length; i++) {
   
   // Construct a JSON object for each inner array
   const jsonObject = {
-    image: innerArray[10],
-    artist: innerArray[11],
+    image: innerArray[7],
+    artist: innerArray[8],
     title: innerArray[1],
-    year: innerArray[6],
+    year: innerArray[4],
     objectID: innerArray[0]
   };
   

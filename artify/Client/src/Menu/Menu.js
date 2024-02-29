@@ -100,6 +100,24 @@ const Menu = () => {
       });
   };
 
+  const handleLearnedClick = () => {
+    fetch('http://localhost:5000/api/artworks/all_learned', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Learned data obtained from server:', data);
+        // Navigate to the Learned page with the data
+        navigate('/Learned', { state: { learnedData: data } });
+      })
+      .catch(error => {
+        console.error('Error fetching learned data:', error);
+      });
+  };
+
   return (
     <div className="menu-container">
       <div className="menu-left">
@@ -110,7 +128,8 @@ const Menu = () => {
       <Link to="/Filters">Home</Link>
 
         <span className="sb" onClick={handleScoreboardClick} style={{ cursor: 'pointer' }}> Scoreboard</span>
-        <span className="sb" onClick={handleCollectionClick} style={{ cursor: 'pointer' }}> Collection</span>
+        <span className="sb" onClick={handleLearnedClick} style={{ cursor: 'pointer' }}> Community's Collection</span>
+        <span className="sb" onClick={handleCollectionClick} style={{ cursor: 'pointer' }}> My Collection</span>
         <span className="sb" onClick={handleDeleteClick} style={{ cursor: 'pointer' }}> Delete User<i class="bi bi-trash3-fill"></i></span>
         <span className="sb dl" onClick={handleLogoutClick} style={{ cursor: 'pointer' }}> Logout<i className="bi bi-box-arrow-left"></i></span>
       </div>

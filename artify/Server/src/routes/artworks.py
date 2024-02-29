@@ -32,13 +32,12 @@ def get_all_learned_artworks():
             'objectId': artwork[0],
             'title': artwork[1],
             'objectName': artwork[2],
-            'dynasty': artwork[3],
-            'objectBeginDate': artwork[4],
-            'objectEndDate': artwork[5],
-            'medium': artwork[6],
-            'classification': artwork[7],
-            'primaryImage': artwork[8],
-            'artist_name': artwork[9]
+            'objectBeginDate': artwork[3],
+            'objectEndDate': artwork[4],
+            'medium': artwork[5],
+            'classification': artwork[6],
+            'primaryImage': artwork[7],
+            'artist_name': artwork[8]
         }
         for artwork in learned_artworks
     ]
@@ -72,7 +71,7 @@ def get_learned_artworks():
     cursor.close()
 
     # Convert the result to a list of dictionaries using column names
-    artworks_list = [{'objectId': artwork[0], 'title': artwork[1], 'objectName': artwork[2], 'dynasty': artwork[3], 'objectBeginDate': artwork[4], 'objectEndDate': artwork[5], 'medium': artwork[6], 'classification': artwork[7], 'primaryImage': artwork[8], 'artist_name': artwork[9]} for artwork in learned_artworks]
+    artworks_list = [{'objectId': artwork[0], 'title': artwork[1], 'objectName': artwork[2], 'objectBeginDate': artwork[3], 'objectEndDate': artwork[4], 'medium': artwork[5], 'classification': artwork[6], 'primaryImage': artwork[7], 'artist_name': artwork[8]} for artwork in learned_artworks]
 
     return jsonify({'learned_artworks': artworks_list})
 

@@ -7,6 +7,7 @@ import Quiz from './Quiz/Quiz';
 import Studying from './Studying/Studying';
 import Filters from './Filters/Filters';
 import Scoreboard from './Scoreboard/Scoreboard';
+import Learned from './Learned/Learned';
 import Collection from './Collection/Collection';
 import { TokenProvider } from './TokenContext'; // Import the TokenProvider
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/Collection" element={<Collection />} />
           <Route path="/Scoreboard" element={<Scoreboard />} />
+          <Route path="/Learned" element={<Learned />} />
         </Routes>
       </BrowserRouter>
     </TokenProvider>

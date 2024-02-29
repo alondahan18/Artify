@@ -10,6 +10,7 @@ import shuffle from 'lodash.shuffle'; // Import the lodash shuffle function
   function Studying() {
     const location = useLocation()
     const filteredChoices = location.state.filteredChoices;
+    console.log(filteredChoices);
     
 
     const navigate = useNavigate();
