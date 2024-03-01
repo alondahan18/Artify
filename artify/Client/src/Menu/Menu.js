@@ -13,23 +13,6 @@ const Menu = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/user/above_average', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data.above_average_users);
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, [token]);
-
   const handleCollectionClick = () => {
     fetch('http://localhost:5000/api/artworks/learned', {
       headers: {
@@ -51,8 +34,21 @@ const Menu = () => {
   
 
   const handleScoreboardClick = () => {
-    console.log(users[0])
-    navigate('/Scoreboard', { state: { users: users } });
+    fetch('http://localhost:5000/api/user/above_average', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // Navigate to the Scoreboard page with the data
+        navigate('/Scoreboard', { state: { users: data.above_average_users } });
+      })
+      .catch(error => {
+        console.error('Error fetching above average users:', error);
+      });
   };
 
   const handleDeleteClick = () => {

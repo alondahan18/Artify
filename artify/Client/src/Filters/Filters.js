@@ -1,14 +1,17 @@
 import './Filters.css';
 import Menu from '../Menu/Menu';
 import { Card, Container, Row, Col, ListGroup, Form } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useToken } from '../TokenContext';
 import { useNavigate } from 'react-router-dom';
+import FilterOptionsList from './FiltersOptionsList'; // Assuming you have a separate component for filter options list
 
 
 
+
+const MemoizedFilterOptionsList = memo(FilterOptionsList);
 
 
 function Filters() {
@@ -174,8 +177,7 @@ function Filters() {
   const nationOptions = filtersData ? filtersData.artist_nationalities : [];
   const typeOptions = filtersData ? filtersData.artwork_classification : [];
   const mediumOptions = filtersData ? filtersData.artwork_medium : [];
-  const periodOptions = filtersData ? filtersData.artwork_period : [];
-  const cultureOptions = filtersData ? filtersData.artwork_culture : [];
+
   return (
     <div>
       <Menu />
@@ -194,18 +196,11 @@ function Filters() {
             />
             <Card.Body>
             <Card.Title>Choose Artists</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {artistOptions.map((artist, index) => (
-                <ListGroup.Item
-                key={index}
-                action
-                onClick={() => toggleArtist(artist)}
-                className={selectedArtists.includes(artist) ? 'selected' : ''}
-              >
-                    {artist}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
+            <MemoizedFilterOptionsList
+                  options={artistOptions}
+                  onSelect={toggleArtist}
+                  selectedOptions={selectedArtists}
+                />
             </Card.Body>
             </Card>
           </Col>
@@ -220,13 +215,11 @@ function Filters() {
             />
             <Card.Body>
             <Card.Title>Choose Nationalities</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {nationOptions.map((nation, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleNation(nation)} className={selectedNations.includes(nation) ? 'selected' : ''}>
-                    {nation}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
+            <MemoizedFilterOptionsList
+                  options={nationOptions}
+                  onSelect={toggleNation}
+                  selectedOptions={selectedNations}
+                />
             </Card.Body>
             </Card>
           </Col>
@@ -341,13 +334,11 @@ function Filters() {
             />
             <Card.Body>
             <Card.Title>Choose Types of art</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {typeOptions.map((type, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleType(type)} className={selectedTypes.includes(type) ? 'selected' : ''}>
-                    {type}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
+            <MemoizedFilterOptionsList
+                  options={typeOptions}
+                  onSelect={toggleType}
+                  selectedOptions={selectedTypes}
+                />
             </Card.Body>
             </Card>
           </Col>
@@ -362,13 +353,11 @@ function Filters() {
             />
             <Card.Body>
             <Card.Title>Choose Mediums</Card.Title>
-            <ListGroup className="artist-list" variant="flush">
-                {mediumOptions.map((medium, index) => (
-                <ListGroup.Item key={index} action onClick={() => toggleMedium(medium)} className={selectedMediums.includes(medium) ? 'selected' : ''}>
-                    {medium}
-                </ListGroup.Item>
-                ))}
-            </ListGroup>
+            <MemoizedFilterOptionsList
+                  options={mediumOptions}
+                  onSelect={toggleMedium}
+                  selectedOptions={selectedMediums}
+                />
             </Card.Body>
             </Card>
           </Col>
