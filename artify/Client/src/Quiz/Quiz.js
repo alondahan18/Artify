@@ -285,7 +285,13 @@ else {
           <button id="cheat" onClick={handleCheat}>cheat button</button>
           <h2 id="title_collection" className="question">Question {question}/{len*3}</h2>
           <span id="questionText">{questionText}</span>
+          
+          <div>
+          {img === "https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg" && (
+            <h3>{list[imgIndex].title}</h3>
+          )}
           <img id="quizImage" src={img} alt="quiz" />
+        </div>
           <div id="answerContainer">
             {answerOptions.map((answer, index) => (
               <button
