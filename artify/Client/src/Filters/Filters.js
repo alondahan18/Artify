@@ -370,7 +370,7 @@ function Filters() {
             className="card-img"
         />
         <Card.Body>
-            <Card.Title>Choose Special Filter</Card.Title>
+            <Card.Title>Choose Special Filter (with no other filter)</Card.Title>
             <Form.Group>
                                     <Form.Check
                                         type="radio"
@@ -380,14 +380,7 @@ function Filters() {
                                         checked={selectedSpecial === "Earliest Artworks"}
                                         onChange={handleSpecialFilterChange}
                                     />
-                                    <Form.Check
-                                        type="radio"
-                                        label="Artistic Cross-Cultural Influences"
-                                        name="specialFilter"
-                                        value="Artistic Cross-Cultural Influences"
-                                        checked={selectedSpecial === "Artistic Cross-Cultural Influences"}
-                                        onChange={handleSpecialFilterChange}
-                                    />
+                                    
                                     <Form.Check
                                         type="radio"
                                         label="None"
