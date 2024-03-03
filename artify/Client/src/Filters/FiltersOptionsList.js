@@ -1,20 +1,28 @@
 import React, { memo } from 'react';
-import {ListGroup} from 'react-bootstrap';
+import { FixedSizeList as List  } from 'react-window';
+import { ListGroup } from 'react-bootstrap';
 
 const FilterOptionsList = memo(({ options, onSelect, selectedOptions }) => {
+  const Row = ({ index, style }) => (
+    <ListGroup.Item
+      style={style}
+      action
+      onClick={() => onSelect(options[index])}
+      className={selectedOptions.includes(options[index]) ? 'selected' : ''}
+    >
+      {options[index]}
+    </ListGroup.Item>
+  );
+
   return (
-    <ListGroup className="artist-list" variant="flush">
-      {options.map((option, index) => (
-        <ListGroup.Item
-          key={index}
-          action
-          onClick={() => onSelect(option)}
-          className={selectedOptions.includes(option) ? 'selected' : ''}
-        >
-          {option}
-        </ListGroup.Item>
-      ))}
-    </ListGroup>
+    <List
+      height={150} // Adjust the height as needed
+      itemCount={options.length}
+      itemSize={50} // Adjust the itemSize as needed
+      width="100%"
+    >
+      {Row}
+    </List>
   );
 });
 
