@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom';
 function Learned() {
   const location = useLocation()
   const collectionData = location.state.learnedData;
-  console.log(collectionData);
   const arrayOfArrays = [];
   collectionData.all_learned_artworks.forEach(jsonObj => {
     // Extract values of each JSON object into an array
@@ -21,7 +20,6 @@ function Learned() {
     return [index5, index8, index6, index3, index4, index2, index1, index7, index0];
   });
   
-  console.log(rearrangedArrays); // Output the rearranged arrays
     return (
         <div>
             <Menu />

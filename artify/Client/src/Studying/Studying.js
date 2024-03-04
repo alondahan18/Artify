@@ -1,7 +1,6 @@
 import './Studying.css'
 import Menu from '../Menu/Menu';
 import ArtGallery from '../ArtGallery/ArtGallery';
-import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import shuffle from 'lodash.shuffle'; // Import the lodash shuffle function
@@ -10,7 +9,6 @@ import shuffle from 'lodash.shuffle'; // Import the lodash shuffle function
 function Studying() {
   const location = useLocation()
   const filteredChoices = location.state.filteredChoices;
-  console.log(filteredChoices);
   
   const navigate = useNavigate();
 
@@ -21,10 +19,9 @@ function Studying() {
       shuffle(filteredChoices);
 
     // Filter out inner arrays where array[7] equals a specific URL
-    const filteredShuffledChoices = shuffledChoices.filter(array => array[7] !== "https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg");
 
     // Take the first 4 arrays or all if less than 4
-    const quizData = filteredShuffledChoices.slice(0, 4);
+    const quizData = shuffledChoices.slice(0, 4);
 
     // Navigate to the Quiz page with quizData
     if (quizData.length === 0) {

@@ -8,7 +8,6 @@ import { useToken } from '../TokenContext';
 
 const Menu = () => {
   const { token, userScore } = useToken(); // Access token and userScore from useToken hook
-  console.log(userScore)
 
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
@@ -22,7 +21,6 @@ const Menu = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Data obtained from server:', data);
         // Navigate to the Collection page with the data
         navigate('/Collection', { state: { collectionData: data } });
       })
@@ -42,7 +40,6 @@ const Menu = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         // Navigate to the Scoreboard page with the data
         navigate('/Scoreboard', { state: { users: data.above_average_users } });
       })
@@ -61,7 +58,6 @@ const Menu = () => {
     })
       .then(response => {
         if (response.ok) {
-          console.log('User deleted successfully');
           navigate('/')
           // Perform any necessary actions after successful deletion
         } else {
@@ -105,7 +101,6 @@ const Menu = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Learned data obtained from server:', data);
         // Navigate to the Learned page with the data
         navigate('/Learned', { state: { learnedData: data } });
       })

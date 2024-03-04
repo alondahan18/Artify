@@ -1,9 +1,7 @@
 import './Filters.css';
 import Menu from '../Menu/Menu';
-import { Card, Container, Row, Col, ListGroup, Form } from 'react-bootstrap';
+import { Card, Container, Row, Col, Form } from 'react-bootstrap';
 import { useState, memo } from 'react';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useToken } from '../TokenContext';
 import { useNavigate } from 'react-router-dom';
 import FilterOptionsList from './FiltersOptionsList'; // Assuming you have a separate component for filter options list
@@ -27,9 +25,7 @@ function Filters() {
     const [maxYear, setMaxYear] = useState(2024);
     const [selectedDimensions, setSelectedDimensions] = useState([]);
     const [selectedSpecial, setSelectedSpecial] = useState('None');
-    console.log(selectedArtists)
     const {token, filtersData} = useToken();
-    console.log(token)
 
 
     const applyFilters = async () => {
@@ -76,7 +72,6 @@ function Filters() {
     const handleSpecialFilterChange = (event) => {
       setSelectedSpecial(event.target.value);
   };
-  console.log(selectedSpecial)
 
     const toggleDimension = (dimension) => {
     const isSelected = selectedDimensions.includes(dimension);
@@ -129,25 +124,9 @@ function Filters() {
         });
       };
       
-      const togglePeriod = (period) => {
-        setSelectedPeriods((prevPeriods) => {
-          if (prevPeriods.includes(period)) {
-            return prevPeriods.filter((p) => p !== period);
-          } else {
-            return [...prevPeriods, period];
-          }
-        });
-      };
       
-      const toggleCulture = (culture) => {
-        setSelectedCultures((prevCultures) => {
-          if (prevCultures.includes(culture)) {
-            return prevCultures.filter((c) => c !== culture);
-          } else {
-            return [...prevCultures, culture];
-          }
-        });
-      };
+      
+      
       
       const toggleMedium = (medium) => {
         setSelectedMediums((prevMediums) => {

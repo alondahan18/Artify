@@ -72,10 +72,8 @@ for (let i = 0; i < quizData.length; i++) {
 const list = jsonObjects;
 const len = list.length
 var imgIndices
-console.log(list)
 if (len === 4) {
   imgIndices = generated;
-  console.log(imgIndices)
 }
 else if (len === 3) {
   imgIndices = [0, 2, 0, 1, 1, 2, 2, 0, 1]
@@ -89,7 +87,6 @@ else {
   var imgIndex = imgIndices[len*3-1]
   const [question, setQuestion] = useState(1);
   if (question <= len*3) {
-    console.log("here")
     imgIndex = imgIndices[question-1]
   }
   const [correctAnswers, setCorrectAnswers] = useState(0);
