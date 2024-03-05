@@ -123,9 +123,9 @@ def get_unique_lists():
 
 def get_dimensions():
     size_to_product = {
-        'Small': (0, 400),
-        'Medium': (401, 800),
-        'Large': (801, 999999),  # Use a large number as an approximation for infinity
+        'Small': (0, 200),
+        'Medium': (201, 400),
+        'Large': (401, 999999999),  # Use a large number as an approximation for infinity
     }
     return size_to_product
 
@@ -180,19 +180,9 @@ def filter_artworks():
                     for size in values:
                         if size in size_to_product:
                             min_threshold, max_threshold = size_to_product[size]
-                            size_conditions.append(f"""
-                                (
-                                    CASE
-                                        WHEN COALESCE(Measurements.height, 1) = -1 THEN COALESCE(Measurements.length, 1) * COALESCE(Measurements.width, 1)
-                                        WHEN COALESCE(Measurements.length, 1) = -1 THEN COALESCE(Measurements.height, 1) * COALESCE(Measurements.width, 1)
-                                        WHEN COALESCE(Measurements.width, 1) = -1 THEN COALESCE(Measurements.height, 1) * COALESCE(Measurements.length, 1)
-                                        ELSE COALESCE(Measurements.height, 1) * COALESCE(Measurements.length, 1) * COALESCE(Measurements.width, 1)
-                                    END
-                                    BETWEEN {min_threshold} AND {max_threshold}
-                                )
-                            """)
+                            size_conditions.append(f"(ABS(COALESCE(Measurements.height, 1) * COALESCE(Measurements.length, 1) * COALESCE(Measurements.width, 1)) BETWEEN {min_threshold} AND {max_threshold})")
 
-                            
+                    
                     if size_conditions:
                         conditions.append(f"({' OR '.join(size_conditions)})")
 
