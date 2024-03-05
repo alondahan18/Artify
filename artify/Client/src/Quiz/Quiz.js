@@ -262,6 +262,7 @@ else {
           }, 3500);
         })
         .catch(error => {
+          alert(error)
           console.error('Error:', error);
         });
     }
