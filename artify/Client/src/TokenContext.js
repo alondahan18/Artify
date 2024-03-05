@@ -34,6 +34,7 @@ export const TokenProvider = ({ children }) => {
           console.error('Failed to fetch user score:', response.statusText);
         }
       } catch (error) {
+        alert(error.message);
         console.error('Error fetching user score:', error);
       }
     };
@@ -60,6 +61,7 @@ export const TokenProvider = ({ children }) => {
             console.error('Failed to fetch filters:', response.statusText);
           }
         } catch (error) {
+          alert(error.message);
           console.error('Error fetching filters:', error.message);
         }
       };

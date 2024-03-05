@@ -25,6 +25,7 @@ const Menu = () => {
         navigate('/Collection', { state: { collectionData: data } });
       })
       .catch(error => {
+        alert(error)
         console.error('Error fetching collection data:', error);
       });
   };
@@ -44,6 +45,7 @@ const Menu = () => {
         navigate('/Scoreboard', { state: { users: data.above_average_users } });
       })
       .catch(error => {
+        alert(error)
         console.error('Error fetching above average users:', error);
       });
   };
@@ -66,6 +68,7 @@ const Menu = () => {
         }
       })
       .catch(error => {
+        alert(error)
         console.error('Error deleting user:', error);
       });
   };
@@ -88,6 +91,7 @@ const Menu = () => {
         }
       })
       .catch(error => {
+        alert(error)
         console.error('Error logging out:', error);
       });
   };
@@ -105,6 +109,7 @@ const Menu = () => {
         navigate('/Learned', { state: { learnedData: data } });
       })
       .catch(error => {
+        alert(error)
         console.error('Error fetching learned data:', error);
       });
   };

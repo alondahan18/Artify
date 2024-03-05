@@ -65,6 +65,7 @@ function Filters() {
               console.error('Failed to apply filters');
           }
       } catch (error) {
+          alert(error)
           console.error('Error applying filters:', error);
       }
   };
