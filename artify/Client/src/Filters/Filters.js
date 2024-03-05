@@ -62,10 +62,11 @@ function Filters() {
               // Do something with filteredChoices
               navigate('/Studying', {state: {filteredChoices: filteredChoices}})
           } else {
-              console.error('Failed to apply filters');
+              const errorData = await response.json();
+              throw new Error(errorData.error || 'Getting filter results failed');
           }
       } catch (error) {
-          alert(error)
+          alert(error.message)
           console.error('Error applying filters:', error);
       }
   };

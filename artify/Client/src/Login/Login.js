@@ -22,7 +22,8 @@ function Login() {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed: Wrong username or password');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Login failed');
             }
 
             // If login is successful, navigate to home page
